@@ -1,18 +1,1903 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>VizGen 商图引擎</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}:root{--bg:#08080b;--p:#13131a;--p2:#1a1a23;--l:#2b2b38;--l2:#3b3b4a;--t:#f5f5f7;--m:#aaaaba;--d:#6f6f80;--b:#ff7a1a;--b2:#f05219;--g:#22c55e;--r:#ef4444;--y:#eab308;--v:#a78bfa}body{min-height:100vh;background:radial-gradient(circle at 8% -8%,rgba(255,122,26,.22),transparent 35%),radial-gradient(circle at 95% 0,rgba(96,165,250,.16),transparent 30%),var(--bg);color:var(--t);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",Arial,sans-serif;padding:22px}button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:1440px;margin:0 auto}.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-bottom:18px}.card{background:linear-gradient(180deg,rgba(25,25,34,.96),rgba(14,14,19,.96));border:1px solid var(--l);border-radius:24px;box-shadow:0 24px 80px rgba(0,0,0,.35);padding:22px}.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,var(--b),#ff3d73);display:grid;place-items:center;font-weight:900;font-size:22px}.brand h1{font-size:25px}.sub,.brand p{color:var(--m);font-size:12px;margin-top:3px}.hero h2{font-size:44px;line-height:1.05;letter-spacing:-1.5px;margin:22px 0 12px}.hero h2 b{color:var(--b)}.desc{color:#c9c9d4;line-height:1.75}.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px}.chip,.badge{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--l);background:#191921;color:#cfcfda;border-radius:999px;padding:7px 11px;font-size:12px}.ok{color:var(--g);border-color:rgba(34,197,94,.35);background:rgba(34,197,94,.08)}.warn{color:var(--y);border-color:rgba(234,179,8,.35);background:rgba(234,179,8,.08)}.err{color:var(--r);border-color:rgba(239,68,68,.35);background:rgba(239,68,68,.08)}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}.metric{background:#0d0d12;border:1px solid var(--l);border-radius:16px;padding:14px}.metric strong{font-size:24px}.metric span{display:block;color:var(--d);font-size:12px;margin-top:2px}.field label{display:block;font-size:12px;font-weight:850;color:var(--m);margin-bottom:7px}.input,textarea,select{width:100%;background:#09090d;border:1px solid var(--l2);border-radius:14px;color:var(--t);padding:12px;outline:none}textarea{line-height:1.65;resize:vertical}.input:focus,textarea:focus,select:focus{border-color:var(--b);box-shadow:0 0 0 3px rgba(255,122,26,.1)}.btn{border:0;border-radius:14px;padding:12px 17px;font-weight:850;color:var(--t);background:#262631}.btn.primary{background:linear-gradient(135deg,var(--b),var(--b2));box-shadow:0 12px 32px rgba(255,122,26,.22)}.btn.ghost{border:1px solid var(--l2);background:transparent;color:#cacad5}.btn.danger{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.28);color:#ff9b9b}.btn.sm{padding:8px 11px;border-radius:11px;font-size:12px}.btn:disabled{opacity:.4;cursor:not-allowed}.toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:16px}.notice{font-size:13px;line-height:1.6;color:#ffd8bf;background:rgba(255,122,26,.08);border:1px solid rgba(255,122,26,.28);border-radius:16px;padding:13px;margin-top:14px}.workspace{display:grid;grid-template-columns:330px 1fr;gap:18px}.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:18px}.panel-head h3{font-size:21px}.tabs{display:flex;gap:8px;flex-wrap:wrap}.tab{border:1px solid var(--l);background:#121218;color:var(--m);padding:9px 12px;border-radius:999px;font-size:12px;font-weight:800}.tab.on{color:#fff;border-color:var(--b);background:rgba(255,122,26,.12)}.steps,.queue{display:grid;gap:10px}.step{display:flex;gap:12px;background:#111117;border:1px solid var(--l);border-radius:17px;padding:14px;color:var(--m)}.num{width:28px;height:28px;border-radius:10px;background:#20202a;display:grid;place-items:center;font-size:12px;font-weight:900;flex:none}.step.active{background:rgba(255,122,26,.1);border-color:var(--b);color:#fff}.step.done{border-color:rgba(34,197,94,.28);color:#baf7ce}.upload{border:2px dashed #3a3a49;border-radius:22px;min-height:260px;background:#0b0b10;display:grid;place-items:center;text-align:center;padding:22px;transition:.18s}.upload:hover{border-color:var(--b);background:rgba(255,122,26,.04)}.icon{font-size:44px;margin-bottom:8px}.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:14px}.product{background:#101016;border:1px solid var(--l);border-radius:20px;overflow:hidden}.product.active{border-color:var(--b);box-shadow:0 0 0 3px rgba(255,122,26,.1)}.product img{width:100%;height:180px;object-fit:contain;background:#09090d;display:block}.body{padding:13px}.product-name{font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mini{font-size:12px;color:var(--d);line-height:1.5;margin-top:5px;max-height:56px;overflow:hidden}.scene-grid,.template-grid,.results{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.scene,.template{position:relative;min-height:122px;background:#111117;border:1px solid var(--l);border-radius:18px;padding:16px;transition:.16s}.scene:hover,.template:hover{transform:translateY(-1px);border-color:#555568}.scene.on,.template.on{background:rgba(255,122,26,.1);border-color:var(--b)}.scene h4,.template h4{font-size:15px;margin-bottom:7px}.scene p,.template p{font-size:12px;color:var(--m);line-height:1.5}.scene-ico{font-size:28px;margin-bottom:8px}.tick{position:absolute;top:12px;right:12px;width:23px;height:23px;border-radius:9px;background:#22222d;display:grid;place-items:center;color:var(--b);font-weight:900}.report{background:#0b0b10;border:1px solid var(--l);border-radius:18px;padding:18px;line-height:1.8;color:#c9c9d4;max-height:430px;overflow:auto}.split{display:grid;grid-template-columns:280px 1fr;gap:16px}.prompt-card{background:#111117;border:1px solid var(--l);border-radius:19px;padding:16px;margin-bottom:12px}.prompt-card.on{border-color:rgba(255,122,26,.55);background:rgba(255,122,26,.06)}.prompt-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.scene-name{font-weight:900;color:var(--b)}.check{width:30px;height:30px;border-radius:10px;border:1px solid var(--l2);display:grid;place-items:center;background:transparent;color:#fff}.check.on{background:var(--b);border-color:var(--b)}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px}.result{background:#111117;border:1px solid var(--l);border-radius:20px;overflow:hidden;min-height:260px}.result img{width:100%;display:block;background:#09090d}.empty{min-height:260px;display:grid;place-items:center;text-align:center;padding:18px;color:var(--m)}.progress{height:9px;background:#0b0b10;border:1px solid var(--l);border-radius:999px;overflow:hidden;margin-top:14px}.progress i{display:block;height:100%;width:var(--w,0%);background:linear-gradient(90deg,var(--b),#ff3d73)}.queue-item{display:grid;grid-template-columns:54px 1fr auto;align-items:center;gap:10px;background:#101016;border:1px solid var(--l);border-radius:16px;padding:10px}.queue-item img{width:54px;height:54px;object-fit:contain;border-radius:12px;background:#08080b}.footer{color:var(--d);font-size:12px;text-align:center;margin:24px 0 8px}.hidden{display:none!important}@media(max-width:980px){body{padding:14px}.hero,.workspace,.split{grid-template-columns:1fr}.hero h2{font-size:33px}.metrics{grid-template-columns:1fr 1fr}.toolbar{justify-content:stretch}.btn{flex:1}.card{padding:17px}}
-</style></head><body><div class="app"><section class="hero"><div class="card"><div class="brand"><div class="logo">V</div><div><h1>VizGen 商图引擎</h1><p>AI E-commerce Visual OS</p></div></div><h2>从单次出图，升级成<b>电商视觉生产系统</b></h2><p class="desc">支持多产品批量上传、行业模板、提示词保存复用、批量分析与批量生成。先用本地存储跑通完整产品闭环，后续可接后端做团队协作和资产管理。</p><div class="chips"><span class="chip">多产品任务队列</span><span class="chip">行业模板库</span><span class="chip">Prompt 复用</span><span class="chip">批量分析</span><span class="chip">批量出图</span></div><div class="metrics"><div class="metric"><strong id="mProducts">0</strong><span>产品任务</span></div><div class="metric"><strong id="mTemplates">0</strong><span>模板数量</span></div><div class="metric"><strong>3</strong><span>行业模式</span></div><div class="metric"><strong>6</strong><span>默认场景</span></div></div></div><div class="card"><div class="panel-head"><h3>API 配置</h3><span class="badge warn">本地保存</span></div><div class="field"><label>API 地址</label><input class="input" id="baseUrl" placeholder="https://api.example.com"></div><div class="field"><label>访问令牌</label><input class="input" id="apiKey" type="password" placeholder="在这里粘贴访问令牌"></div><div class="row"><div class="field"><label>文本/视觉模型</label><input class="input" id="textModel" value="gpt-5.4"></div><div class="field"><label>生图模型</label><input class="input" id="imgModel" value="gpt-image-1"></div></div><div class="notice">访问令牌只保存在当前浏览器 localStorage。正式商业化时请改为后端代理，避免前端暴露用户凭证。</div><div class="toolbar"><button class="btn ghost" onclick="saveSettings()">保存配置</button><button class="btn primary" onclick="goStep(0)">进入工作台</button></div></div></section><section class="workspace"><aside class="card"><div class="panel-head"><h3>工作流</h3><span class="badge" id="flowBadge">Step 01</span></div><div class="steps" id="steps"></div><br><div class="panel-head"><h3>任务队列</h3><span class="badge" id="queueBadge">0 个</span></div><div class="queue" id="queue"></div></aside><main class="card"><div id="panel"></div></main></section><div class="footer">VizGen 商图引擎 · Batch Product Images to E-commerce Campaign Visuals</div></div><input id="fileInput" type="file" accept="image/*" multiple class="hidden"><script>
-const INDUSTRIES={taobao:{name:'淘宝/天猫',hint:'点击转化、卖点清晰、促销氛围强',templates:['爆款主图','详情页卖点图','活动促销海报']},xhs:{name:'小红书',hint:'真实生活感、种草氛围、低硬广感',templates:['种草封面','生活方式图','Before/After 对比']},cross:{name:'跨境电商',hint:'干净合规、多语言友好、信息图清晰',templates:['白底主图','Lifestyle 场景图','Infographic 信息图']}};
-const SCENES=[{id:'main',ico:'🛒',name:'电商主图',desc:'干净背景，产品居中，核心卖点清晰。'},{id:'detail',ico:'📄',name:'详情页头图',desc:'强化场景与信息层级，适合详情页首屏。'},{id:'xhs',ico:'🌿',name:'小红书种草',desc:'真实生活方式、柔和氛围、低硬广感。'},{id:'poster',ico:'🔥',name:'促销海报',desc:'强视觉冲击、价格利益点、行动引导。'},{id:'compare',ico:'📊',name:'对比图',desc:'前后对比、竞品对比、数据可视化。'},{id:'banner',ico:'🖼️',name:'店铺 Banner',desc:'横版构图，品牌统一，引导点击。'}];
-const STEPS=['上传产品','行业/模板','批量分析','提示词确认','批量生成'];let state={step:0,industry:'taobao',products:[],activeId:null,scenes:new Set(['main','detail','xhs']),selectedTemplate:'',customTemplates:loadTemplates(),running:false,size:'1024x1024',quality:'auto'};const $=id=>document.getElementById(id);const uid=()=>Math.random().toString(36).slice(2,9)+Date.now().toString(36).slice(-4);function esc(s=''){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}function md(s=''){return esc(s).replace(/^### (.*)$/gm,'<h3>$1</h3>').replace(/^## (.*)$/gm,'<h3>$1</h3>').replace(/^# (.*)$/gm,'<h3>$1</h3>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/^- (.*)$/gm,'<div>• $1</div>').replace(/\n/g,'<br>')}function config(){return{base:$('baseUrl').value.trim().replace(/\/+$/,''),key:$('apiKey').value.trim(),text:$('textModel').value.trim(),img:$('imgModel').value.trim()}}function headers(c,json=true){let h={};h[['Author','ization'].join('')]='Bearer '+c.key;if(json)h['Content-Type']='application/json';return h}function saveSettings(){['baseUrl','apiKey','textModel','imgModel'].forEach(id=>localStorage.setItem('vizgen_'+id,$(id).value));alert('配置已保存')}function loadSettings(){['baseUrl','apiKey','textModel','imgModel'].forEach(id=>{let v=localStorage.getItem('vizgen_'+id);if(v)$(id).value=v})}function loadTemplates(){try{return JSON.parse(localStorage.getItem('vizgen_templates')||'[]')}catch(e){return[]}}function saveTemplates(){localStorage.setItem('vizgen_templates',JSON.stringify(state.customTemplates));renderMeta()}function activeProduct(){return state.products.find(p=>p.id===state.activeId)||state.products[0]}function renderMeta(){if($('mProducts'))$('mProducts').textContent=state.products.length;if($('mTemplates'))$('mTemplates').textContent=state.customTemplates.length+9;if($('queueBadge'))$('queueBadge').textContent=state.products.length+' 个';renderQueue()}function renderQueue(){if(!$('queue'))return;$('queue').innerHTML=state.products.length?state.products.map(p=>`<div class="queue-item" onclick="state.activeId='${p.id}';renderAll()"><img src="${p.b64}"><div><div class="product-name">${esc(p.name)}</div><div class="mini">报告：${p.report?'✓':'-'} ｜ 提示词：${p.prompts?.length||0} ｜ 结果：${p.results?.filter(r=>r.status==='done').length||0}</div></div><span class="badge ${p.status==='error'?'err':p.status==='done'?'ok':p.status==='running'?'warn':''}">${esc(p.status||'待处理')}</span></div>`).join(''):'<p class="mini">暂无产品，先上传图片。</p>'}function renderSteps(){$('flowBadge').textContent='Step '+String(state.step+1).padStart(2,'0');$('steps').innerHTML=STEPS.map((s,i)=>`<div class="step ${i===state.step?'active':''} ${i<state.step?'done':''}" ${i<state.step?`onclick="goStep(${i})"`:''}><div class="num">${i<state.step?'✓':i+1}</div><div><strong>${s}</strong><p class="sub">${['批量上传产品图','选择行业和模板','逐个生成产品报告','确认/保存/复用提示词','任务队列批量出图'][i]}</p></div></div>`).join('')}function renderAll(){renderSteps();renderMeta();renderPanel()}function goStep(i){state.step=i;renderAll()}function panel(html){$('panel').innerHTML=html}
-function renderPanel(){if(state.step===0)return panel(`<div class="panel-head"><h3>批量上传产品</h3><span class="badge">支持多选 / 拖拽</span></div><div class="upload" onclick="fileInput.click()"><div><div class="icon">📦</div><h3>点击或拖拽上传多个产品图</h3><p class="desc">建议一次先测试 3-10 张。每个产品会进入任务队列，可单独分析、生成和下载。</p></div></div><div class="product-grid">${state.products.map(p=>`<div class="product ${p.id===state.activeId?'active':''}" onclick="state.activeId='${p.id}';renderAll()"><img src="${p.b64}"><div class="body"><div class="product-name">${esc(p.name)}</div><p class="mini">${esc(p.supplement||'暂无补充信息')}</p><div class="toolbar"><button class="btn sm ghost" onclick="event.stopPropagation();editSupplement('${p.id}')">补充信息</button><button class="btn sm danger" onclick="event.stopPropagation();removeProduct('${p.id}')">删除</button></div></div></div>`).join('')}</div><div class="toolbar"><button class="btn ghost" onclick="clearProducts()">清空产品</button><button class="btn primary" ${state.products.length?'':'disabled'} onclick="goStep(1)">下一步：行业/模板 →</button></div>`);if(state.step===1)return panel(`<div class="panel-head"><h3>行业与模板</h3><span class="badge">${INDUSTRIES[state.industry].name}</span></div><div class="tabs">${Object.keys(INDUSTRIES).map(k=>`<button class="tab ${state.industry===k?'on':''}" onclick="state.industry='${k}';state.selectedTemplate='';renderAll()">${INDUSTRIES[k].name}</button>`).join('')}</div><p class="desc" style="margin:14px 0">${INDUSTRIES[state.industry].hint}</p><div class="template-grid">${INDUSTRIES[state.industry].templates.map(t=>templateCard(t,'系统模板')).join('')}${state.customTemplates.map(t=>templateCard(t.name,'我的模板')).join('')}</div><br><div class="panel-head"><h3>默认生成场景</h3><span class="badge">已选 ${state.scenes.size}</span></div><div class="scene-grid">${SCENES.map(s=>`<div class="scene ${state.scenes.has(s.id)?'on':''}" onclick="toggleScene('${s.id}')"><div class="tick">${state.scenes.has(s.id)?'✓':''}</div><div class="scene-ico">${s.ico}</div><h4>${s.name}</h4><p>${s.desc}</p></div>`).join('')}</div><div class="toolbar"><button class="btn ghost" onclick="goStep(0)">返回上传</button><button class="btn primary" ${state.scenes.size?'':'disabled'} onclick="batchAnalyze()">批量分析产品 →</button></div>`);if(state.step===2){let p=activeProduct();return panel(`<div class="panel-head"><h3>批量分析</h3><span class="badge ${state.running?'warn':'ok'}">${state.running?'运行中':'可继续'}</span></div><div class="product-grid">${state.products.map(x=>`<div class="product ${x.id===state.activeId?'active':''}" onclick="state.activeId='${x.id}';renderAll()"><img src="${x.b64}"><div class="body"><div class="product-name">${esc(x.name)}</div><span class="badge ${x.status==='error'?'err':x.report?'ok':x.status==='running'?'warn':''}">${esc(x.status||'待分析')}</span></div></div>`).join('')}</div><br>${p?`<div class="split"><div><img src="${p.b64}" style="width:100%;height:260px;object-fit:contain;background:#09090d;border-radius:18px;border:1px solid var(--l)"><br><br><button class="btn ghost" onclick="analyzeOne('${p.id}')">单独分析当前产品</button></div><div class="report">${p.report?md(p.report):'选择一个产品查看报告。'}</div></div>`:''}<div class="toolbar"><button class="btn ghost" onclick="goStep(1)">返回模板</button><button class="btn ghost" onclick="batchAnalyze()">重新批量分析</button><button class="btn primary" ${state.products.some(p=>p.report)?'':'disabled'} onclick="batchPrompts()">生成提示词 →</button></div>`)}if(state.step===3){let p=activeProduct();return panel(`<div class="panel-head"><h3>提示词确认</h3><span class="badge">当前：${p?esc(p.name):'无产品'}</span></div><div class="product-grid">${state.products.map(x=>`<div class="product ${x.id===state.activeId?'active':''}" onclick="state.activeId='${x.id}';renderAll()"><img src="${x.b64}"><div class="body"><div class="product-name">${esc(x.name)}</div><p class="mini">提示词：${x.prompts?.length||0}</p></div></div>`).join('')}</div><br>${p?(p.prompts||[]).map((it,i)=>`<div class="prompt-card ${it.checked?'on':''}"><div class="prompt-top"><span class="scene-name">${esc(it.scene)}</span><button class="check ${it.checked?'on':''}" onclick="togglePrompt('${p.id}',${i})">${it.checked?'✓':''}</button></div><div class="field"><label>生图提示词</label><textarea rows="5" onchange="editPrompt('${p.id}',${i},this.value)">${esc(it.prompt)}</textarea></div><div class="field"><label>图上文字</label><input class="input" value="${esc(it.text_on_image||'')}" onchange="editText('${p.id}',${i},this.value)"></div><div class="toolbar"><button class="btn sm ghost" onclick="savePromptTemplate('${p.id}',${i})">保存为模板</button><button class="btn sm ghost" onclick="applyTemplate('${p.id}',${i})">套用已选模板</button></div></div>`).join(''):'无产品'}<div class="row"><div class="field"><label>尺寸</label><select id="size" onchange="state.size=this.value"><option value="1024x1024">1024×1024 方形</option><option value="1536x1024">1536×1024 横版</option><option value="1024x1536">1024×1536 竖版</option></select></div><div class="field"><label>质量</label><select id="quality" onchange="state.quality=this.value"><option value="auto">auto</option><option value="high">high</option><option value="medium">medium</option><option value="low">low</option></select></div></div><div class="toolbar"><button class="btn ghost" onclick="goStep(2)">返回报告</button><button class="btn ghost" onclick="batchPrompts()">重新生成提示词</button><button class="btn primary" onclick="batchGenerate()">批量出图 →</button></div>`)}if(state.step===4){let all=state.products.flatMap(p=>(p.results||[]).map(r=>({...r,product:p.name})));let done=all.filter(r=>r.status==='done').length;let pct=all.length?Math.round(done/all.length*100):0;return panel(`<div class="panel-head"><h3>批量生成结果</h3><span class="badge ${done===all.length&&done?'ok':'warn'}">${done}/${all.length} 完成</span></div><div class="progress"><i style="--w:${pct}%"></i></div><br><div class="results">${all.map((r,i)=>`<div class="result">${r.image?`<img src="${r.image}"><div class="body"><strong>${esc(r.product)} · ${esc(r.scene)}</strong><p class="mini">${esc(r.prompt)}</p><div class="toolbar"><button class="btn sm ghost" onclick="downloadUrl('${r.image}','${esc(r.product+'_'+r.scene)}.png')">下载</button></div></div>`:`<div class="empty"><div><span class="badge ${r.status==='error'?'err':r.status==='生成中'?'warn':''}">${esc(r.status)}</span><h4 style="margin-top:10px">${esc(r.product)} · ${esc(r.scene)}</h4><p class="mini">${esc(r.error||r.prompt||'')}</p></div></div>`}</div>`).join('')}</div><div class="toolbar"><button class="btn ghost" onclick="goStep(3)">返回提示词</button><button class="btn primary" ${done?'':'disabled'} onclick="downloadAll()">下载全部</button></div>`)} }
-function templateCard(name,type){return `<div class="template ${state.selectedTemplate===name?'on':''}" onclick="state.selectedTemplate='${esc(name)}';renderAll()"><div class="tick">${state.selectedTemplate===name?'✓':''}</div><h4>${esc(name)}</h4><p>${type} · ${INDUSTRIES[state.industry].hint}</p></div>`}function toggleScene(id){state.scenes.has(id)?state.scenes.delete(id):state.scenes.add(id);renderAll()}function togglePrompt(pid,i){let p=state.products.find(x=>x.id===pid);p.prompts[i].checked=!p.prompts[i].checked;renderAll()}function editPrompt(pid,i,v){state.products.find(x=>x.id===pid).prompts[i].prompt=v}function editText(pid,i,v){state.products.find(x=>x.id===pid).prompts[i].text_on_image=v}function removeProduct(id){state.products=state.products.filter(p=>p.id!==id);if(state.activeId===id)state.activeId=state.products[0]?.id||null;renderAll()}function clearProducts(){if(confirm('清空所有产品？')){state.products=[];state.activeId=null;renderAll()}}function editSupplement(id){let p=state.products.find(x=>x.id===id);let v=prompt('补充产品信息',p.supplement||'');if(v!==null){p.supplement=v;renderAll()}}
-fileInput.onchange=e=>handleFiles([...e.target.files]);document.addEventListener('dragover',e=>e.preventDefault());document.addEventListener('drop',e=>{e.preventDefault();if(state.step===0)handleFiles([...e.dataTransfer.files])});function handleFiles(files){files.filter(f=>f.type.startsWith('image/')).forEach(f=>{let r=new FileReader();r.onload=()=>{let p={id:uid(),name:f.name,file:f,b64:r.result,supplement:'',report:'',prompts:[],results:[],status:'待分析'};state.products.push(p);if(!state.activeId)state.activeId=p.id;renderAll()};r.readAsDataURL(f)})}function responseText(data){return data.output_text||data.output?.flatMap(o=>o.content||[]).find(c=>c.text)?.text||data.choices?.[0]?.message?.content||''}
-async function analyzeOne(id){let c=config();if(!c.base||!c.key)return alert('请先填写 API 地址和访问令牌');let p=state.products.find(x=>x.id===id);if(!p)return;p.status='running';state.running=true;renderAll();try{let res=await fetch(c.base+'/v1/responses',{method:'POST',headers:headers(c),body:JSON.stringify({model:c.text,instructions:'你是资深电商视觉策划师。输出产品识别报告，包含品牌、品类、包装/颜色/材质、核心卖点、受众、行业建议、推荐图上短文案和电商视觉生成建议。Markdown 输出，具体可执行。',input:[{role:'user',content:[{type:'input_image',image_url:p.b64},{type:'input_text',text:`行业：${INDUSTRIES[state.industry].name}\n模板：${state.selectedTemplate||'默认'}\n补充信息：${p.supplement||'无'}`}]}]})});if(!res.ok)throw new Error((await res.text()).slice(0,600));p.report=responseText(await res.json())||'未返回分析结果';p.status='done'}catch(e){p.report='分析失败：'+e.message;p.status='error'}finally{state.running=false;renderAll()}}async function batchAnalyze(){state.step=2;renderAll();for(const p of state.products){await analyzeOne(p.id)}}async function batchPrompts(){let c=config();let selected=[...state.scenes].map(id=>SCENES.find(s=>s.id===id)?.name).filter(Boolean);state.step=3;renderAll();for(const p of state.products){if(!p.report)continue;p.prompts=selected.map(s=>({scene:s,prompt:'正在生成...',text_on_image:'',checked:true}));renderAll();try{let res=await fetch(c.base+'/v1/responses',{method:'POST',headers:headers(c),body:JSON.stringify({model:c.text,instructions:'你是电商 AI 生图提示词工程师。根据产品报告、行业、模板和场景生成中文生图提示词。严格输出 JSON 数组：[{"scene":"","prompt":"150-250字","text_on_image":""}]。不要 Markdown。',input:`行业：${INDUSTRIES[state.industry].name}\n行业风格：${INDUSTRIES[state.industry].hint}\n模板：${state.selectedTemplate||'默认'}\n产品报告：\n${p.report}\n场景：${selected.join('、')}`})});if(!res.ok)throw new Error((await res.text()).slice(0,500));let raw=responseText(await res.json()).replace(/```json|```/g,'').trim();p.prompts=JSON.parse(raw).map((x,i)=>({scene:x.scene||selected[i],prompt:x.prompt||'',text_on_image:x.text_on_image||'',checked:true}))}catch(e){p.prompts=selected.map(s=>({scene:s,prompt:`为产品“${p.name}”生成${s}：遵循${INDUSTRIES[state.industry].name}风格，${INDUSTRIES[state.industry].hint}。保留产品外观、包装比例、品牌标识，突出核心卖点；商业摄影质感，画面干净，构图清晰，适合电商转化。${state.selectedTemplate?'参考模板：'+state.selectedTemplate+'。':''}`,text_on_image:'核心卖点/立即购买',checked:true}))}renderAll()}}
-function savePromptTemplate(pid,i){let p=state.products.find(x=>x.id===pid);let it=p.prompts[i];let name=prompt('模板名称',`${state.industry}-${it.scene}-${new Date().toLocaleDateString()}`);if(!name)return;state.customTemplates.unshift({id:uid(),name,industry:state.industry,scene:it.scene,prompt:it.prompt,text_on_image:it.text_on_image,createdAt:Date.now()});saveTemplates();alert('模板已保存')}function applyTemplate(pid,i){let p=state.products.find(x=>x.id===pid);let tpl=state.customTemplates.find(t=>t.name===state.selectedTemplate);if(!tpl)return alert('请先选择一个“我的模板”');p.prompts[i].prompt=tpl.prompt;p.prompts[i].text_on_image=tpl.text_on_image||'';renderAll()}
-async function batchGenerate(){let c=config();if(!c.base||!c.key)return alert('请先填写 API 地址和访问令牌');state.step=4;state.products.forEach(p=>p.results=(p.prompts||[]).filter(x=>x.checked).map(x=>({scene:x.scene,prompt:x.prompt,text_on_image:x.text_on_image,status:'等待中',image:''})));renderAll();for(const p of state.products){for(const r of p.results){r.status='生成中';renderAll();try{let fd=new FormData();fd.append('model',c.img);fd.append('prompt',r.prompt+(r.text_on_image?'\n图上文字：'+r.text_on_image:''));fd.append('image',p.file);fd.append('size',state.size);fd.append('quality',state.quality);fd.append('n','1');let res=await fetch(c.base+'/v1/images/edits',{method:'POST',headers:headers(c,false),body:fd});if(!res.ok)throw new Error((await res.text()).slice(0,500));let item=(await res.json()).data?.[0]||{};r.image=item.b64_json?'data:image/png;base64,'+item.b64_json:item.url;r.status=r.image?'done':'error';if(!r.image)r.error='No image returned'}catch(e){r.status='error';r.error=e.message}renderAll()}}}function downloadUrl(url,name){let a=document.createElement('a');a.href=url;a.download=name;a.click()}function downloadAll(){state.products.forEach((p,pi)=>(p.results||[]).forEach((r,ri)=>{if(r.image)setTimeout(()=>downloadUrl(r.image,`VizGen_${p.name}_${r.scene}.png`),(pi*10+ri)*200)}))}loadSettings();renderAll();
-</script></body></html>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VizGen 商图引擎</title>
+  <style>
+    *{box-sizing:border-box}
+    :root{
+      --bg:#f7f8fb;
+      --surface:#ffffff;
+      --surface-soft:#f8fafc;
+      --surface-muted:#f1f5f9;
+      --surface-tint:#eef2ff;
+      --line:#e5e7eb;
+      --line-strong:#cbd5e1;
+      --text:#0f172a;
+      --muted:#64748b;
+      --soft:#94a3b8;
+      --brand:#4f46e5;
+      --brand-dark:#3730a3;
+      --brand-ink:#312e81;
+      --ink:#111827;
+      --ink2:#1f2937;
+      --danger:#dc2626;
+      --ok:#059669;
+      --warn:#b45309;
+      --radius-xl:24px;
+      --radius-lg:18px;
+      --radius-md:14px;
+      --radius-sm:10px;
+      --shadow-xs:0 1px 2px rgba(15,23,42,.04);
+      --shadow-sm:0 8px 24px rgba(15,23,42,.05);
+      --shadow:0 24px 70px rgba(15,23,42,.08);
+      --ring:0 0 0 4px rgba(79,70,229,.12);
+    }
+    html{height:100%;scroll-behavior:smooth}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+              radial-gradient(circle at 12% -4%,rgba(79,70,229,.10),transparent 30%),
+              radial-gradient(circle at 88% 8%,rgba(14,165,233,.08),transparent 26%),
+              linear-gradient(180deg,#fbfcff 0%,#f7f8fb 44%,#f3f6fa 100%);
+      color:var(--text);
+      font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC","PingFang SC",Arial,sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:geometricPrecision;
+    }
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+              linear-gradient(rgba(15,23,42,.035) 1px,transparent 1px),
+              linear-gradient(90deg,rgba(15,23,42,.028) 1px,transparent 1px);
+      background-size:44px 44px;
+      mask-image:linear-gradient(180deg,rgba(0,0,0,.42),transparent 62%);
+    }
+    ::selection{background:rgba(79,70,229,.18);color:var(--text)}
+    *::-webkit-scrollbar{width:10px;height:10px}
+    *::-webkit-scrollbar-track{background:transparent}
+    *::-webkit-scrollbar-thumb{background:#dbe3ee;border:3px solid transparent;border-radius:999px;background-clip:padding-box}
+    *::-webkit-scrollbar-thumb:hover{background:#c9d3e1;border:3px solid transparent;background-clip:padding-box}
+    button,input,textarea,select{font:inherit}
+    button{cursor:pointer}
+    h1,h2,h3,h4,p{margin:0}
+    .app{
+      position:relative;
+      max-width:1720px;
+      margin:0 auto;
+      padding:24px;
+      display:grid;
+      grid-template-columns:300px minmax(0,1fr);
+      grid-template-areas:"brand settings" "side main" "footer footer";
+      gap:18px;
+      align-items:start;
+    }
+    .topbar,.layout{display:contents}
+    .brand{grid-area:brand}
+    .settings{grid-area:settings}
+    .side{grid-area:side}
+    .main{grid-area:main}
+    .footer{grid-area:footer}
+    .brand,.settings,.side,.main{
+      border:1px solid rgba(226,232,240,.92);
+      border-radius:var(--radius-lg);
+      box-shadow:var(--shadow-sm);
+    }
+    .brand{
+      position:relative;
+      overflow:hidden;
+      min-height:108px;
+      padding:20px;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      background:linear-gradient(180deg,rgba(255,255,255,.94),rgba(255,255,255,.82));
+      backdrop-filter:blur(18px);
+    }
+    .brand:after{
+      content:"";
+      position:absolute;
+      width:160px;
+      height:160px;
+      right:-72px;
+      top:-82px;
+      border-radius:999px;
+      background:radial-gradient(circle,rgba(79,70,229,.18),rgba(79,70,229,0) 68%);
+    }
+    .brand>*{position:relative;z-index:1}
+    .mark{
+      width:52px;
+      height:52px;
+      border-radius:16px;
+      background:linear-gradient(135deg,#0f172a,#1e293b);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      font-size:20px;
+      letter-spacing:.02em;
+      box-shadow:0 14px 32px rgba(15,23,42,.18),inset 0 1px 0 rgba(255,255,255,.14);
+    }
+    .brand h1{font-size:22px;line-height:1.15;letter-spacing:-.03em;color:#0f172a;font-weight:800}
+    .brand .sub{color:var(--muted)}
+    .sub{font-size:13px;color:var(--muted);line-height:1.6;margin-top:4px}
+    .settings,.side,.main{
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(18px);
+    }
+    .settings{padding:18px}
+    .settings-grid{
+      display:grid;
+      grid-template-columns:1.15fr 1.15fr .88fr .88fr auto;
+      gap:14px;
+      align-items:end;
+    }
+    .field label{
+      display:block;
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.01em;
+      color:#475569;
+      margin-bottom:8px;
+    }
+    .input,select,textarea{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:var(--radius-md);
+      background:#fff;
+      color:var(--text);
+      padding:12px 14px;
+      outline:none;
+      box-shadow:var(--shadow-xs);
+      transition:border-color .16s ease,box-shadow .16s ease,background .16s ease,transform .16s ease;
+    }
+    .input,select{height:50px}
+    textarea{line-height:1.65;resize:vertical;min-height:108px}
+    .input::placeholder,textarea::placeholder{color:#a0aec0}
+    .input:hover,select:hover,textarea:hover{border-color:var(--line-strong);background:#fff}
+    .input:focus,select:focus,textarea:focus{border-color:rgba(79,70,229,.62);box-shadow:var(--ring),var(--shadow-xs)}
+    .side,.main{padding:22px}
+    .side{position:sticky;top:20px;max-height:calc(100vh - 40px);overflow:auto}
+    .main{min-height:640px}
+    .panel-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-bottom:14px;
+    }
+    .panel-head:not(:first-child){margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}
+    .panel-head h2,.panel-head h3{font-size:18px;letter-spacing:-.02em;font-weight:800;color:var(--text)}
+    .steps{display:grid;gap:10px;margin-bottom:10px}
+    .step{
+      display:grid;
+      grid-template-columns:34px 1fr;
+      gap:12px;
+      padding:12px;
+      border:1px solid transparent;
+      border-radius:16px;
+      background:transparent;
+      color:var(--muted);
+      transition:background .16s ease,border-color .16s ease,box-shadow .16s ease,transform .16s ease;
+    }
+    .step:hover{background:var(--surface-soft);border-color:var(--line);transform:translateY(-1px)}
+    .step.on{
+      border-color:rgba(79,70,229,.22);
+      background:linear-gradient(180deg,#f5f7ff,#eef2ff);
+      color:var(--text);
+      box-shadow:0 12px 28px rgba(79,70,229,.08);
+    }
+    .step.done{border-color:rgba(5,150,105,.14);background:#f5fbf8;color:#1f4f3e}
+    .step-num{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      background:#eef2f7;
+      display:grid;
+      place-items:center;
+      font-size:13px;
+      font-weight:800;
+      color:#334155;
+    }
+    .step.on .step-num{background:var(--brand);color:#fff;box-shadow:0 10px 24px rgba(79,70,229,.20)}
+    .step.done .step-num{background:#dcfce7;color:#047857}
+    .step strong{display:block;font-size:14px;line-height:1.35;color:inherit;font-weight:800}
+    .queue{display:grid;gap:10px}
+    .queue>.mini{border:1px dashed var(--line-strong);border-radius:16px;padding:16px;background:var(--surface-soft);text-align:center}
+    .queue-item{
+      display:grid;
+      grid-template-columns:48px minmax(0,1fr) auto;
+      gap:12px;
+      align-items:center;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:#fff;
+      transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease,background .16s ease;
+      box-shadow:var(--shadow-xs);
+    }
+    .queue-item:hover{border-color:var(--line-strong);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+    .queue-item.active{border-color:rgba(79,70,229,.36);background:#f7f7ff;box-shadow:0 14px 32px rgba(79,70,229,.08)}
+    .queue-item img{
+      width:48px;
+      height:48px;
+      object-fit:contain;
+      background:var(--surface-muted);
+      border-radius:14px;
+      border:1px solid #e8eef6;
+    }
+    .name{font-weight:800;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#111827}
+    .mini{font-size:12.5px;color:var(--muted);line-height:1.55;margin-top:4px}
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      white-space:nowrap;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:#fff;
+      padding:6px 10px;
+      min-height:30px;
+      font-size:12px;
+      font-weight:700;
+      color:var(--muted);
+      box-shadow:var(--shadow-xs);
+    }
+    .badge.ok{color:var(--ok);border-color:rgba(5,150,105,.22);background:#ecfdf5}
+    .badge.warn{color:var(--warn);border-color:rgba(180,83,9,.22);background:#fffbeb}
+    .badge.err{color:var(--danger);border-color:rgba(220,38,38,.22);background:#fef2f2}
+    .btn{
+      min-height:44px;
+      border:1px solid transparent;
+      border-radius:14px;
+      background:var(--ink);
+      color:#fff;
+      padding:10px 16px;
+      font-weight:800;
+      letter-spacing:-.01em;
+      box-shadow:0 10px 22px rgba(15,23,42,.12),inset 0 1px 0 rgba(255,255,255,.12);
+      transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease,background .16s ease,opacity .16s ease;
+    }
+    .btn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 16px 32px rgba(15,23,42,.16),inset 0 1px 0 rgba(255,255,255,.12)}
+    .btn:active:not(:disabled){transform:translateY(0);box-shadow:0 8px 16px rgba(15,23,42,.12)}
+    .btn.primary{background:linear-gradient(135deg,var(--brand),#6366f1);box-shadow:0 14px 30px rgba(79,70,229,.22),inset 0 1px 0 rgba(255,255,255,.16)}
+    .btn.secondary{background:#0f172a}
+    .btn.ghost{background:#fff;color:#334155;border-color:var(--line);box-shadow:var(--shadow-xs)}
+    .btn.ghost:hover:not(:disabled){border-color:var(--line-strong);box-shadow:var(--shadow-sm)}
+    .btn.danger{background:#fff;color:var(--danger);border-color:rgba(220,38,38,.25);box-shadow:var(--shadow-xs)}
+    .btn.sm{min-height:34px;padding:7px 11px;font-size:12px;border-radius:11px}
+    .btn:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+    .toolbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;margin-top:18px}
+    .card-body .toolbar,.product-card .toolbar{justify-content:flex-start;margin-top:12px}
+    .notice{
+      border:1px solid rgba(180,83,9,.20);
+      background:#fffbeb;
+      color:#92400e;
+      border-radius:16px;
+      padding:12px 14px;
+      font-size:13px;
+      line-height:1.65;
+      margin:14px 0;
+    }
+    .workspace-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:22px;
+      padding-bottom:0;
+      border-bottom:0;
+    }
+    .workspace-head h2{font-size:30px;line-height:1.1;letter-spacing:-.045em;font-weight:850;color:#0f172a}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:11px;
+      font-weight:800;
+      text-transform:uppercase;
+      letter-spacing:.10em;
+      color:var(--brand-dark);
+      margin-bottom:8px;
+    }
+    .eyebrow:before{content:"";width:7px;height:7px;border-radius:999px;background:var(--brand);box-shadow:0 0 0 4px rgba(79,70,229,.12)}
+    .upload-composer{display:grid;grid-template-columns:minmax(360px,1.35fr) minmax(290px,.72fr);gap:18px;align-items:stretch}
+    .upload{
+      min-height:410px;
+      border:1px dashed var(--line-strong);
+      border-radius:var(--radius-xl);
+      background:radial-gradient(circle at 50% 0%,rgba(79,70,229,.08),transparent 36%),linear-gradient(180deg,#fff,#fafcff);
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:34px;
+      transition:border-color .18s ease,background .18s ease,box-shadow .18s ease,transform .18s ease;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.9),var(--shadow-xs);
+    }
+    .upload:before{
+      content:"";
+      position:absolute;
+      inset:18px;
+      border:1px solid rgba(79,70,229,.08);
+      border-radius:20px;
+      pointer-events:none;
+    }
+    .upload:hover,.is-dragging .upload{
+      border-color:rgba(79,70,229,.55);
+      background:radial-gradient(circle at 50% 0%,rgba(79,70,229,.13),transparent 40%),linear-gradient(180deg,#fff,#f7f8ff);
+      transform:translateY(-1px);
+      box-shadow:0 22px 50px rgba(79,70,229,.10);
+    }
+    .upload h3{font-size:22px;margin-bottom:8px;letter-spacing:-.02em;font-weight:850;color:#0f172a}
+    .upload-mark{
+      width:64px;
+      height:64px;
+      border-radius:20px;
+      margin:0 auto 18px;
+      display:grid;
+      place-items:center;
+      background:#eef2ff;
+      color:var(--brand);
+      border:1px solid rgba(79,70,229,.16);
+      font-size:34px;
+      line-height:1;
+      font-weight:700;
+      box-shadow:0 16px 34px rgba(79,70,229,.14);
+    }
+    .upload-meta{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px}
+    .upload-meta span{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;color:var(--muted);font-weight:700;box-shadow:var(--shadow-xs)}
+    .brief-card{
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      background:rgba(255,255,255,.92);
+      box-shadow:var(--shadow-xs);
+      padding:18px;
+      display:flex;
+      flex-direction:column;
+      min-height:410px;
+    }
+    .brief-card h3{font-size:18px;margin-bottom:4px;letter-spacing:-.02em;font-weight:800}
+    .brief-preview,.brief-empty{
+      height:164px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:var(--surface-soft);
+      display:grid;
+      place-items:center;
+      margin:16px 0;
+      overflow:hidden;
+    }
+    .brief-preview img{width:100%;height:100%;object-fit:contain}
+    .brief-empty{background:linear-gradient(135deg,#f8fafc,#eef2ff);color:var(--soft);font-weight:800}
+    .brief-card textarea{min-height:136px}
+    .metric-row{display:grid;gap:10px;margin-top:16px}
+    .metric-line{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);background:#fff;border-radius:15px;padding:12px 13px;font-size:13px;color:var(--muted);box-shadow:var(--shadow-xs)}
+    .metric-line strong{color:var(--text);font-size:15px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .product-strip{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:14px}
+    .product-card,.choice,.prompt-card,.result-card,.report-box{border:1px solid var(--line);border-radius:18px;background:#fff;box-shadow:var(--shadow-xs)}
+    .product-card{overflow:hidden;transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease,background .16s ease}
+    .product-card:hover{transform:translateY(-2px);border-color:var(--line-strong);box-shadow:var(--shadow-sm)}
+    .product-card.active{border-color:rgba(79,70,229,.36);background:#f8f7ff;box-shadow:0 16px 34px rgba(79,70,229,.09)}
+    .product-card img{width:100%;height:184px;object-fit:contain;background:linear-gradient(180deg,#f8fafc,#f1f5f9);display:block;border-bottom:1px solid #e8eef6}
+    .card-body{padding:13px}
+    .choice{
+      padding:17px;
+      min-height:128px;
+      position:relative;
+      transition:border-color .16s ease,box-shadow .16s ease,transform .16s ease,background .16s ease;
+    }
+    .choice:hover{transform:translateY(-2px);border-color:var(--line-strong);box-shadow:var(--shadow-sm)}
+    .choice.on{border-color:rgba(79,70,229,.36);background:linear-gradient(180deg,#f9f9ff,#f3f4ff);box-shadow:0 16px 34px rgba(79,70,229,.08)}
+    .choice h4{font-size:15px;margin-bottom:8px;color:#0f172a;font-weight:850;letter-spacing:-.01em}
+    .choice p{font-size:12.5px;color:var(--muted);line-height:1.62;max-width:92%}
+    .tick{
+      position:absolute;
+      top:13px;
+      right:13px;
+      width:24px;
+      height:24px;
+      border-radius:999px;
+      border:1px solid var(--line-strong);
+      display:grid;
+      place-items:center;
+      font-size:13px;
+      color:#fff;
+      background:#fff;
+      font-weight:800;
+    }
+    .choice.on .tick{background:var(--brand);border-color:var(--brand);box-shadow:0 8px 18px rgba(79,70,229,.22)}
+    .tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}
+    .tab{
+      border:1px solid var(--line);
+      background:#fff;
+      color:#334155;
+      border-radius:999px;
+      padding:9px 14px;
+      font-weight:800;
+      font-size:13px;
+      transition:border-color .16s ease,box-shadow .16s ease,background .16s ease,color .16s ease,transform .16s ease;
+      box-shadow:var(--shadow-xs);
+    }
+    .tab:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+    .tab.on{border-color:rgba(79,70,229,.30);color:var(--brand-ink);background:#eef2ff;box-shadow:0 10px 24px rgba(79,70,229,.08)}
+    .section{margin-top:22px}
+    .section h3{font-size:16px;margin-bottom:12px;color:#172033;font-weight:850;letter-spacing:-.015em}
+    .two-col{display:grid;grid-template-columns:310px 1fr;gap:18px}
+    .report-layout{display:grid;grid-template-columns:200px minmax(0,1fr);gap:18px;align-items:start}
+    .report-product{border:1px solid var(--line);border-radius:18px;background:var(--surface-soft);padding:12px;opacity:.88;box-shadow:var(--shadow-xs)}
+    .preview{width:100%;height:300px;object-fit:contain;background:var(--surface-muted);border:1px solid var(--line);border-radius:18px}
+    .report-product .preview{height:156px;border-color:#e8eef6;background:#fff}
+    .report-box{padding:0;background:#fff;overflow:hidden;border-color:var(--line);box-shadow:var(--shadow-sm);border-radius:20px}
+    .report-box textarea{min-height:620px;font-family:inherit;border:0;border-radius:0;box-shadow:none;line-height:1.75;padding:24px 28px;background:#fff}
+    .report-box textarea:focus{box-shadow:inset 0 0 0 1px rgba(79,70,229,.18)}
+    .report-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#fff,#f8fafc)}
+    .report-head strong{font-size:16px;color:#0f172a;font-weight:850}
+    .seg{display:inline-flex;border:1px solid var(--line);border-radius:13px;overflow:hidden;background:#fff;box-shadow:var(--shadow-xs);padding:3px}
+    .seg button{border:0;background:transparent;color:#475569;padding:8px 12px;font-size:12px;font-weight:800;border-radius:10px;transition:background .16s ease,color .16s ease}
+    .seg button.on{background:#0f172a;color:#fff}
+    .markdown-body{min-height:620px;padding:28px 34px;background:#fff;color:#263241;line-height:1.78;font-size:15px;overflow:auto}
+    .markdown-body.empty{display:grid;place-items:center;text-align:center;color:var(--muted)}
+    .markdown-body h1,.markdown-body h2,.markdown-body h3{line-height:1.28;margin:22px 0 10px;color:#0f172a;letter-spacing:-.02em}
+    .markdown-body h1:first-child,.markdown-body h2:first-child,.markdown-body h3:first-child{margin-top:0}
+    .markdown-body h1{font-size:25px;border-bottom:1px solid var(--line);padding-bottom:14px}
+    .markdown-body h2{font-size:20px}
+    .markdown-body h3{font-size:17px}
+    .markdown-body p{margin:9px 0}
+    .markdown-body ul,.markdown-body ol{margin:9px 0 14px 22px;padding:0}
+    .markdown-body li{margin:6px 0}
+    .markdown-body strong{font-weight:850;color:#0f172a}
+    .markdown-body code{background:#f3f5f8;border:1px solid #e3e8ef;border-radius:7px;padding:1px 6px;font-size:13px}
+    .markdown-body hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+    .prompt-card{padding:16px;margin-bottom:14px;background:#fff;box-shadow:var(--shadow-xs);border-radius:18px}
+    .prompt-card.off{opacity:.62}
+    .prompt-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+    .prompt-title{font-weight:850;color:var(--brand-ink)}
+    .row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:14px}
+    .progress{height:12px;border-radius:999px;border:1px solid var(--line);background:#eef2f7;overflow:hidden;box-shadow:inset 0 1px 2px rgba(15,23,42,.04)}
+    .progress i{display:block;height:100%;width:var(--w,0%);background:linear-gradient(90deg,var(--brand),#22c55e);border-radius:inherit;box-shadow:0 0 18px rgba(79,70,229,.22)}
+    .result-card{overflow:hidden;background:#fff;min-height:260px;box-shadow:var(--shadow-xs);border-radius:18px}
+    .result-card img{width:100%;display:block;background:var(--surface-muted);border-bottom:1px solid #e8eef6}
+    .result-thumb{cursor:zoom-in;transition:filter .16s ease,transform .16s ease}
+    .result-thumb:hover{filter:saturate(1.04) contrast(1.02);transform:scale(1.01)}
+    body.lightbox-lock{overflow:hidden}
+    .lightbox{
+      position:fixed;
+      inset:0;
+      z-index:10000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      background:rgba(15,23,42,.78);
+      backdrop-filter:blur(18px);
+    }
+    .lightbox.open{display:flex;animation:lightboxIn .16s ease both}
+    .lightbox-stage{
+      width:min(1180px,100%);
+      height:min(980px,94vh);
+      display:grid;
+      grid-template-rows:auto minmax(0,1fr) auto;
+      gap:12px;
+      color:#fff;
+      min-height:0;
+    }
+    .lightbox-head,.lightbox-caption{
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:18px;
+      background:rgba(15,23,42,.54);
+      box-shadow:0 24px 70px rgba(0,0,0,.22);
+      backdrop-filter:blur(18px);
+    }
+    .lightbox-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:12px 14px 12px 18px;
+    }
+    .lightbox-title{font-weight:850;letter-spacing:-.01em}
+    .lightbox-counter{display:block;margin-top:3px;color:rgba(255,255,255,.68);font-size:12px;font-weight:700}
+    .lightbox-close,.lightbox-nav{
+      border:1px solid rgba(255,255,255,.18);
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      box-shadow:0 12px 28px rgba(0,0,0,.18);
+      transition:background .16s ease,transform .16s ease,opacity .16s ease;
+    }
+    .lightbox-close:hover,.lightbox-nav:hover:not(:disabled){background:rgba(255,255,255,.22);transform:translateY(-1px)}
+    .lightbox-close{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      font-size:24px;
+      line-height:1;
+    }
+    .lightbox-frame{
+      position:relative;
+      min-height:0;
+      min-width:0;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.16);
+      border-radius:24px;
+      background:radial-gradient(circle at 50% 0%,rgba(255,255,255,.12),transparent 40%),rgba(15,23,42,.36);
+      box-shadow:0 30px 80px rgba(0,0,0,.30);
+    }
+    .lightbox-frame img{
+      width:100%;
+      height:100%;
+      object-fit:contain;
+      border-radius:18px;
+      box-shadow:0 20px 60px rgba(0,0,0,.28);
+    }
+    .lightbox-nav{
+      position:absolute;
+      top:50%;
+      z-index:2;
+      width:52px;
+      height:66px;
+      border-radius:18px;
+      transform:translateY(-50%);
+      font-size:38px;
+      line-height:1;
+    }
+    .lightbox-nav:hover:not(:disabled){transform:translateY(-50%) scale(1.03)}
+    .lightbox-nav:disabled{opacity:.34;cursor:not-allowed}
+    .lightbox-prev{left:14px}
+    .lightbox-next{right:14px}
+    .lightbox-caption{
+      min-height:48px;
+      max-height:72px;
+      overflow:auto;
+      padding:12px 16px;
+      color:rgba(255,255,255,.78);
+      font-size:13px;
+      line-height:1.62;
+    }
+    @keyframes lightboxIn{from{opacity:0}to{opacity:1}}
+    .empty{min-height:260px;display:grid;place-items:center;text-align:center;color:var(--muted);padding:20px;background:linear-gradient(180deg,#fff,#f8fafc)}
+    .hidden{display:none!important}
+    .footer{font-size:12px;color:var(--soft);text-align:center;margin:18px 0 4px}
+    .toast-stack{position:fixed;top:24px;right:24px;z-index:9999;display:grid;gap:10px;pointer-events:none}
+    .toast{min-width:220px;max-width:360px;border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,.96);box-shadow:var(--shadow);padding:12px 14px;color:#0f172a;font-size:13px;font-weight:700;line-height:1.45;animation:toastIn .18s ease both;backdrop-filter:blur(16px)}
+    .toast.err{border-color:rgba(220,38,38,.22);background:#fff7f7;color:#991b1b}
+    @keyframes toastIn{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+    @media(max-width:1180px){
+      .settings-grid{grid-template-columns:1fr 1fr;align-items:end}
+      .settings-grid .btn{justify-self:start}
+    }
+    @media(max-width:1050px){
+      .app{grid-template-columns:1fr;grid-template-areas:"brand" "settings" "side" "main" "footer"}
+      .two-col,.report-layout,.upload-composer{grid-template-columns:1fr}
+      .side{position:static;max-height:none}
+      .report-product .preview{height:150px}
+    }
+    @media(max-width:640px){
+      .app{padding:12px;gap:12px}
+      .settings,.side,.main{padding:16px}
+      .settings-grid,.row{grid-template-columns:1fr}
+      .workspace-head{align-items:flex-start;flex-direction:column}
+      .workspace-head h2{font-size:25px}
+      .toolbar{justify-content:stretch}
+      .btn{flex:1}
+      .upload{min-height:330px;padding:24px}
+      .markdown-body{padding:20px;min-height:480px}
+      .report-box textarea{min-height:480px}
+      .toast-stack{left:12px;right:12px;top:12px}
+      .toast{max-width:none}
+      .lightbox{padding:12px}
+      .lightbox-stage{height:92vh}
+      .lightbox-nav{width:44px;height:58px;border-radius:15px;font-size:32px}
+      .lightbox-prev{left:8px}
+      .lightbox-next{right:8px}
+    }
+
+  </style>
+</head>
+<body>
+<div class="app">
+  <header class="topbar">
+    <div class="brand">
+      <div class="mark">V</div>
+      <div>
+        <h1>VizGen 商图引擎</h1>
+        <p class="sub">从产品图到可下载商业海报</p>
+      </div>
+    </div>
+    <div class="settings">
+      <div class="settings-grid">
+        <div class="field"><label>API 地址</label><input class="input" id="baseUrl" placeholder="https://api.example.com"></div>
+        <div class="field"><label>访问令牌</label><input class="input" id="apiKey" type="password" placeholder="只保存在当前浏览器"></div>
+        <div class="field"><label>分析模型</label><input class="input" id="textModel" value="gpt-5.4"></div>
+        <div class="field"><label>生图模型</label><input class="input" id="imgModel" value="gpt-image-2"></div>
+        <button class="btn ghost" onclick="saveSettings()">保存配置</button>
+      </div>
+    </div>
+  </header>
+  <div class="layout">
+    <aside class="side">
+      <div class="panel-head"><h2>工作流</h2><span class="badge" id="flowBadge">Step 01</span></div>
+      <div class="steps" id="steps"></div>
+      <div class="panel-head"><h3>产品队列</h3><span class="badge" id="queueBadge">0 个</span></div>
+      <div class="queue" id="queue"></div>
+    </aside>
+    <main class="main">
+      <div id="panel"></div>
+    </main>
+  </div>
+  <div class="footer">VizGen 商图引擎 · 本地前端演示版</div>
+</div>
+<input id="fileInput" type="file" accept="image/*" multiple class="hidden">
+<div class="lightbox" id="imageLightbox" aria-hidden="true" onclick="lightboxBackdrop(event)">
+  <div class="lightbox-stage" role="dialog" aria-modal="true" aria-labelledby="lightboxTitle">
+    <div class="lightbox-head">
+      <div>
+        <div class="lightbox-title" id="lightboxTitle">&#25104;&#22270;&#39044;&#35272;</div>
+        <span class="lightbox-counter" id="lightboxCounter"></span>
+      </div>
+      <button class="lightbox-close" type="button" onclick="closeLightbox()" aria-label="&#20851;&#38381;">&times;</button>
+    </div>
+    <div class="lightbox-frame">
+      <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" onclick="moveLightbox(-1)" aria-label="&#19978;&#19968;&#24352;">&lsaquo;</button>
+      <img id="lightboxImage" alt="">
+      <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" onclick="moveLightbox(1)" aria-label="&#19979;&#19968;&#24352;">&rsaquo;</button>
+    </div>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+</div>
+<script>
+  const INDUSTRIES = {
+    taobao: {
+      name: '淘宝/天猫',
+      hint: '转化导向，卖点清晰，促销氛围强，适合主图、详情页和活动海报。',
+      templates: [
+        { name: '爆款主图', desc: '强识别产品主体，前三秒传达核心利益点。' },
+        { name: '详情页卖点图', desc: '分层展示功能、材质、规格和使用价值。' },
+        { name: '活动促销海报', desc: '突出价格利益、限时感和行动引导。' }
+      ]
+    },
+    xhs: {
+      name: '小红书',
+      hint: '真实生活方式，种草语气，低硬广感，适合封面和笔记配图。',
+      templates: [
+        { name: '种草封面', desc: '真实场景和明确标题，提升停留与点击。' },
+        { name: '生活方式图', desc: '强调使用情境、氛围和审美风格。' },
+        { name: 'Before/After 对比', desc: '用对照结构放大变化和效果。' }
+      ]
+    },
+    cross: {
+      name: '跨境电商',
+      hint: '干净合规，信息图清晰，多语言友好，适合 Amazon、独立站和广告投放。',
+      templates: [
+        { name: '白底主图', desc: '产品完整、边缘清晰、信息克制。' },
+        { name: 'Lifestyle 场景图', desc: '自然使用环境，强调尺寸、用途和质感。' },
+        { name: 'Infographic 信息图', desc: '图标化表达参数、卖点和使用方法。' }
+      ]
+    }
+  };
+
+  const SCENES = [
+    { id: 'main', name: '电商主图', desc: '干净背景，产品居中，突出品牌和核心卖点。' },
+    { id: 'detail', name: '详情页首屏', desc: '产品特写、信息层级和关键利益点并重。' },
+    { id: 'lifestyle', name: '生活方式场景', desc: '放入真实使用场景，建立购买想象。' },
+    { id: 'promo', name: '促销海报', desc: '强化活动氛围、价格利益和行动引导。' },
+    { id: 'info', name: '卖点信息图', desc: '用结构化标注展示功能、材质、参数。' },
+    { id: 'compare', name: '对比海报', desc: '展示前后变化、竞品差异或升级点。' }
+  ];
+
+  const STEPS = [
+    { name: '上传产品图', desc: '建立产品任务' },
+    { name: '选择行业/模板/场景', desc: '确定视觉策略' },
+    { name: '分析并编辑报告', desc: '提取品牌、类型、卖点和风格' },
+    { name: '生成 N 组提示词', desc: '人工确认后再出图' },
+    { name: '并发生成与下载', desc: '最多同时生成 5 张' }
+  ];
+
+  let state = {
+    step: 0,
+    industry: 'taobao',
+    templateIndex: 0,
+    scenes: new Set(['main', 'detail', 'lifestyle']),
+    customScene: '',
+    requirement: '',
+    promptCount: 6,
+    products: [],
+    activeId: null,
+    running: false,
+    size: '1024x1024',
+    quality: 'auto'
+  };
+
+  let lightboxIndex = -1;
+
+  const $ = id => document.getElementById(id);
+
+  function toast(message, type = 'info') {
+    let stack = document.querySelector('.toast-stack');
+    if (!stack) {
+      stack = document.createElement('div');
+      stack.className = 'toast-stack';
+      document.body.appendChild(stack);
+    }
+    const el = document.createElement('div');
+    el.className = 'toast ' + (type === 'error' ? 'err' : '');
+    el.textContent = message;
+    stack.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(-6px) scale(.98)';
+    }, 2200);
+    setTimeout(() => el.remove(), 2600);
+  }
+  const uid = () => Math.random().toString(36).slice(2, 9) + Date.now().toString(36).slice(-4);
+
+  function esc(value = '') {
+    return String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+  }
+
+  function lightboxItems() {
+    return state.products.flatMap(product => product.results.map((result, index) => ({
+      productId: product.id,
+      productName: product.name,
+      index,
+      scene: result.scene || 'Poster',
+      prompt: result.prompt || '',
+      image: result.image || ''
+    }))).filter(item => item.image);
+  }
+
+  function renderLightbox() {
+    const box = $('imageLightbox');
+    const image = $('lightboxImage');
+    if (!box || !image) return;
+
+    const items = lightboxItems();
+    if (!items.length) {
+      closeLightbox();
+      return;
+    }
+
+    lightboxIndex = Math.max(0, Math.min(lightboxIndex, items.length - 1));
+    const item = items[lightboxIndex];
+    const title = `${item.productName} - ${item.scene || 'Poster'}`;
+    image.src = item.image;
+    image.alt = title;
+    $('lightboxTitle').textContent = title;
+    $('lightboxCounter').textContent = `${lightboxIndex + 1} / ${items.length}`;
+    $('lightboxCaption').textContent = item.prompt;
+    $('lightboxPrev').disabled = items.length < 2;
+    $('lightboxNext').disabled = items.length < 2;
+  }
+
+  function openLightbox(productId, index) {
+    const items = lightboxItems();
+    const targetIndex = items.findIndex(item => item.productId === productId && item.index === index);
+    if (targetIndex < 0) return;
+
+    lightboxIndex = targetIndex;
+    renderLightbox();
+    $('imageLightbox').classList.add('open');
+    $('imageLightbox').setAttribute('aria-hidden', 'false');
+    document.body.classList.add('lightbox-lock');
+  }
+
+  function closeLightbox() {
+    const box = $('imageLightbox');
+    if (!box) return;
+    box.classList.remove('open');
+    box.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('lightbox-lock');
+    lightboxIndex = -1;
+  }
+
+  function moveLightbox(delta) {
+    const items = lightboxItems();
+    if (items.length < 2) return;
+    lightboxIndex = (lightboxIndex + delta + items.length) % items.length;
+    renderLightbox();
+  }
+
+  function lightboxBackdrop(event) {
+    if (event.target === $('imageLightbox')) closeLightbox();
+  }
+
+  document.addEventListener('keydown', event => {
+    const box = $('imageLightbox');
+    if (!box || !box.classList.contains('open')) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      closeLightbox();
+    }
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      moveLightbox(-1);
+    }
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      moveLightbox(1);
+    }
+  });
+
+  function inlineMarkdown(value = '') {
+    return esc(value)
+            .replace(/`([^`]+)`/g, '<code>$1</code>')
+            .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  }
+
+  function markdownToHtml(value = '') {
+    const lines = String(value || '').split(/\r?\n/);
+    let html = '';
+    let list = '';
+    const closeList = () => {
+      if (list) {
+        html += `</${list}>`;
+        list = '';
+      }
+    };
+
+    lines.forEach(line => {
+      const raw = line.trim();
+      if (!raw) {
+        closeList();
+        return;
+      }
+      if (/^---+$/.test(raw)) {
+        closeList();
+        html += '<hr>';
+        return;
+      }
+      const heading = raw.match(/^(#{1,3})\s+(.+)$/);
+      if (heading) {
+        closeList();
+        const level = heading[1].length;
+        html += `<h${level}>${inlineMarkdown(heading[2])}</h${level}>`;
+        return;
+      }
+      const bullet = raw.match(/^[-*]\s+(.+)$/);
+      if (bullet) {
+        if (list !== 'ul') {
+          closeList();
+          list = 'ul';
+          html += '<ul>';
+        }
+        html += `<li>${inlineMarkdown(bullet[1])}</li>`;
+        return;
+      }
+      const ordered = raw.match(/^\d+[.)]\s+(.+)$/);
+      if (ordered) {
+        if (list !== 'ol') {
+          closeList();
+          list = 'ol';
+          html += '<ol>';
+        }
+        html += `<li>${inlineMarkdown(ordered[1])}</li>`;
+        return;
+      }
+      closeList();
+      html += `<p>${inlineMarkdown(raw)}</p>`;
+    });
+    closeList();
+    return html;
+  }
+
+  function config() {
+    return {
+      base: $('baseUrl').value.trim().replace(/\/+$/, ''),
+      key: $('apiKey').value.trim(),
+      text: $('textModel').value.trim(),
+      img: $('imgModel').value.trim()
+    };
+  }
+
+  function headers(c, json = true) {
+    const h = { Authorization: 'Bearer ' + c.key };
+    if (json) h['Content-Type'] = 'application/json';
+    return h;
+  }
+
+  function saveSettings() {
+    ['baseUrl', 'apiKey', 'textModel', 'imgModel'].forEach(id => localStorage.setItem('vizgen_' + id, $(id).value));
+    toast('配置已保存');
+  }
+
+  function loadSettings() {
+    ['baseUrl', 'apiKey', 'textModel', 'imgModel'].forEach(id => {
+      const value = localStorage.getItem('vizgen_' + id);
+      if (value) $(id).value = value;
+    });
+  }
+
+  function currentIndustry() {
+    return INDUSTRIES[state.industry];
+  }
+
+  function currentTemplate() {
+    return currentIndustry().templates[state.templateIndex] || currentIndustry().templates[0];
+  }
+
+  function activeProduct() {
+    return state.products.find(p => p.id === state.activeId) || state.products[0] || null;
+  }
+
+  function selectedSceneNames() {
+    const names = [...state.scenes].map(id => SCENES.find(s => s.id === id)?.name).filter(Boolean);
+    if (state.customScene.trim()) names.push(state.customScene.trim());
+    return names.length ? names : ['商业海报'];
+  }
+
+  function reportsReady() {
+    return state.products.length > 0 && state.products.every(p => p.reportDone && p.report.trim() && p.status !== '分析中');
+  }
+
+  function statusClass(status) {
+    if (status === 'done' || status === '已完成') return 'ok';
+    if (status === 'error' || status === '失败') return 'err';
+    if (status === 'running' || status === '生成中' || status === '分析中' || status === '生成提示词' || status === '提示词兜底') return 'warn';
+    return '';
+  }
+
+  function renderAll() {
+    renderSteps();
+    renderQueue();
+    renderPanel();
+  }
+
+  function renderSteps() {
+    $('flowBadge').textContent = 'Step ' + String(state.step + 1).padStart(2, '0');
+    $('steps').innerHTML = STEPS.map((s, index) => `
+    <div class="step ${index === state.step ? 'on' : ''} ${index < state.step ? 'done' : ''}" onclick="goStep(${index})">
+      <div class="step-num">${index < state.step ? '✓' : index + 1}</div>
+      <div><strong>${s.name}</strong><p class="sub">${s.desc}</p></div>
+    </div>
+  `).join('');
+  }
+
+  function renderQueue() {
+    $('queueBadge').textContent = state.products.length + ' 个';
+    $('queue').innerHTML = state.products.length ? state.products.map(p => `
+    <div class="queue-item ${p.id === state.activeId ? 'active' : ''}" onclick="selectProduct('${p.id}')">
+      <img src="${p.b64}" alt="">
+      <div>
+        <div class="name">${esc(p.name)}</div>
+        <div class="mini">报告 ${p.report ? '已填' : '未填'} · 提示词 ${p.prompts.length} · 成图 ${p.results.filter(r => r.status === 'done').length}</div>
+      </div>
+      <span class="badge ${statusClass(p.status)}">${esc(p.status || '待处理')}</span>
+    </div>
+  `).join('') : '<p class="mini">还没有产品。先上传一张或多张产品图。</p>';
+  }
+
+  function goStep(index) {
+    if (index >= 3 && !reportsReady()) {
+      toast('请等待所有产品报告生成完成后，再进入提示词环节');
+      return;
+    }
+    state.step = Math.max(0, Math.min(STEPS.length - 1, index));
+    renderAll();
+  }
+
+  function selectProduct(id) {
+    state.activeId = id;
+    renderAll();
+  }
+
+  function panel(html) {
+    $('panel').innerHTML = html;
+  }
+
+  function renderPanel() {
+    if (state.step === 0) return renderUpload();
+    if (state.step === 1) return renderStrategy();
+    if (state.step === 2) return renderReports();
+    if (state.step === 3) return renderPrompts();
+    return renderResults();
+  }
+
+  function renderUpload() {
+    const p = activeProduct();
+    panel(`
+    <div class="workspace-head">
+      <div>
+        <p class="eyebrow">Step 01 · Product Intake</p>
+        <h2>上传产品图</h2>
+        <p class="sub">把产品图和必要背景信息放进任务队列，后续分析会逐个生成报告。</p>
+      </div>
+      <span class="badge">支持多图批量</span>
+    </div>
+    <div class="upload-composer">
+      <div class="upload" onclick="fileInput.click()">
+        <div>
+          <div class="upload-mark">+</div>
+          <h3>点击或拖拽上传产品图片</h3>
+          <p class="sub">每张图片会成为一个独立产品任务。</p>
+          <div class="upload-meta"><span>JPG / PNG</span><span>可多选</span><span>可拖拽</span></div>
+        </div>
+      </div>
+      <div class="brief-card">
+        <div>
+          <h3>${p ? '当前产品信息' : '产品上下文'}</h3>
+          <p class="mini">${p ? esc(p.name) : '上传后在这里补充品牌、材质、价格带和目标人群。'}</p>
+        </div>
+        ${p ? `<div class="brief-preview"><img src="${p.b64}" alt=""></div>` : '<div class="brief-empty">等待上传</div>'}
+        ${p ? `
+          <div class="field">
+            <label>补充信息</label>
+            <textarea oninput="editSupplement('${p.id}', this.value)" placeholder="例如：品牌名、品类、价格带、材质、规格、目标用户、必须保留的包装文字。">${esc(p.supplement)}</textarea>
+          </div>
+        ` : `
+          <div class="metric-row">
+            <div class="metric-line"><span>产品任务</span><strong>${state.products.length}</strong></div>
+            <div class="metric-line"><span>分析报告</span><strong>${state.products.filter(p => p.reportDone).length}</strong></div>
+            <div class="metric-line"><span>提示词组数</span><strong>${state.promptCount}</strong></div>
+          </div>
+        `}
+      </div>
+    </div>
+    ${state.products.length ? `<div class="section"><h3>产品队列</h3><div class="product-strip">${state.products.map(p => productCard(p)).join('')}</div></div>` : ''}
+    <div class="toolbar">
+      <button class="btn ghost" onclick="clearProducts()" ${state.products.length ? '' : 'disabled'}>清空产品</button>
+      <button class="btn primary" onclick="goStep(1)" ${state.products.length ? '' : 'disabled'}>下一步：选择策略</button>
+    </div>
+  `);
+  }
+
+  function productCard(p) {
+    return `
+    <div class="product-card ${p.id === state.activeId ? 'active' : ''}" onclick="selectProduct('${p.id}')">
+      <img src="${p.b64}" alt="">
+      <div class="card-body">
+        <div class="name">${esc(p.name)}</div>
+        <p class="mini">${esc(p.supplement || '暂无补充信息')}</p>
+        <div class="toolbar">
+          <button class="btn sm danger" onclick="event.stopPropagation();removeProduct('${p.id}')">删除</button>
+        </div>
+      </div>
+    </div>
+  `;
+  }
+
+  function renderStrategy() {
+    const industry = currentIndustry();
+    panel(`
+    <div class="workspace-head">
+      <div>
+        <p class="eyebrow">Step 02 · Creative Strategy</p>
+        <h2>选择行业、模板和场景</h2>
+        <p class="sub">${esc(industry.hint)}</p>
+      </div>
+      <span class="badge">${esc(industry.name)}</span>
+    </div>
+    <div class="tabs">
+      ${Object.keys(INDUSTRIES).map(key => `<button class="tab ${state.industry === key ? 'on' : ''}" onclick="setIndustry('${key}')">${INDUSTRIES[key].name}</button>`).join('')}
+    </div>
+    <div class="section">
+      <h3>模板</h3>
+      <div class="grid">
+        ${industry.templates.map((t, index) => `
+          <div class="choice ${state.templateIndex === index ? 'on' : ''}" onclick="state.templateIndex=${index};renderAll()">
+            <div class="tick">${state.templateIndex === index ? '✓' : ''}</div>
+            <h4>${esc(t.name)}</h4>
+            <p>${esc(t.desc)}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="section">
+      <h3>场景</h3>
+      <div class="grid">
+        ${SCENES.map(s => `
+          <div class="choice ${state.scenes.has(s.id) ? 'on' : ''}" onclick="toggleScene('${s.id}')">
+            <div class="tick">${state.scenes.has(s.id) ? '✓' : ''}</div>
+            <h4>${esc(s.name)}</h4>
+            <p>${esc(s.desc)}</p>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+    <div class="section row">
+      <div class="field">
+        <label>手动场景</label>
+        <textarea oninput="state.customScene=this.value" placeholder="例如：清晨厨房台面，母婴家庭正在使用；或奢华酒店浴室场景。">${esc(state.customScene)}</textarea>
+      </div>
+      <div class="field">
+        <label>额外要求</label>
+        <textarea oninput="state.requirement=this.value" placeholder="例如：不要改变包装文字；画面适合 4 月新品首发；强调轻量、防水、便携。">${esc(state.requirement)}</textarea>
+      </div>
+    </div>
+    <div class="toolbar">
+      <button class="btn ghost" onclick="goStep(0)">返回上传</button>
+      <button class="btn primary" onclick="batchAnalyze()" ${state.products.length ? '' : 'disabled'}>开始智能分析</button>
+    </div>
+  `);
+  }
+
+  function renderReports() {
+    const p = activeProduct();
+    const canGeneratePrompts = reportsReady() && !state.running;
+    panel(`
+    <div class="workspace-head">
+      <div>
+        <p class="eyebrow">Step 03 · Product Intelligence</p>
+        <h2>分析报告</h2>
+        <p class="sub">生成中显示 Markdown 预览；全部产品完成后，才能编辑报告并进入提示词生成。</p>
+      </div>
+      <span class="badge ${state.running ? 'warn' : canGeneratePrompts ? 'ok' : ''}">${state.running ? '分析中' : canGeneratePrompts ? '报告已完成' : '等待报告'}</span>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>提示词组数 N</label>
+        <input class="input" type="number" min="1" max="30" value="${state.promptCount}" oninput="setPromptCount(this.value)">
+        <p class="mini">确认报告后，将基于每个产品报告生成 N 组海报提示词。</p>
+      </div>
+    </div>
+    <div class="grid">${state.products.map(p => productCard(p)).join('')}</div>
+    ${p ? `
+      <div class="section report-layout">
+        <div class="report-product">
+          <img class="preview" src="${p.b64}" alt="">
+          <div class="name" style="margin-top:10px">${esc(p.name)}</div>
+          <p class="mini">当前产品预览已弱化，主要确认右侧报告内容。</p>
+          <span class="badge ${statusClass(p.status)}" style="margin-top:8px">${esc(p.status || '待分析')}</span>
+          <div class="toolbar">
+            <button class="btn sm ghost" onclick="analyzeOne('${p.id}')" ${state.running ? 'disabled' : ''}>重新分析</button>
+          </div>
+        </div>
+        ${renderReportPanel(p)}
+      </div>
+    ` : '<p class="mini">请先上传产品图。</p>'}
+    <div class="toolbar">
+      <button class="btn ghost" onclick="goStep(1)">返回策略</button>
+      <button class="btn ghost" onclick="batchAnalyze()" ${state.products.length ? '' : 'disabled'}>批量重新分析</button>
+      <button class="btn primary" onclick="batchPrompts()" ${canGeneratePrompts ? '' : 'disabled'}>基于报告生成提示词</button>
+    </div>
+  `);
+  }
+
+  function renderReportPanel(p) {
+    const canEdit = reportsReady() && p.reportDone && p.status !== '分析中';
+    const isEdit = canEdit && p.reportMode === 'edit';
+    const placeholder = p.status === '分析中'
+            ? '报告正在生成中...'
+            : '暂无报告。请先点击“开始智能分析”或“重新分析”。';
+    return `
+    <div class="report-box">
+      <div class="report-head">
+        <strong>${esc(p.name)} 的分析报告</strong>
+        ${canEdit ? `
+          <div class="seg">
+            <button class="${!isEdit ? 'on' : ''}" onclick="setReportMode('${p.id}','preview')">预览</button>
+            <button class="${isEdit ? 'on' : ''}" onclick="setReportMode('${p.id}','edit')">编辑</button>
+          </div>
+        ` : `<span class="badge ${p.status === '分析中' ? 'warn' : ''}">${p.status === '分析中' ? '生成中' : '预览'}</span>`}
+      </div>
+      ${isEdit ? `
+        <textarea class="report-editor" oninput="editReport('${p.id}', this.value)" placeholder="可以手动修改报告。">${esc(p.report)}</textarea>
+      ` : `
+        <div class="markdown-body ${p.report ? '' : 'empty'}">${p.report ? markdownToHtml(p.report) : esc(placeholder)}</div>
+      `}
+    </div>
+  `;
+  }
+
+  function renderPrompts() {
+    const p = activeProduct();
+    panel(`
+    <div class="workspace-head">
+      <div>
+        <p class="eyebrow">Step 04 · Prompt Review</p>
+        <h2>确认提示词</h2>
+        <p class="sub">按产品逐组检查生图提示词和图上文案，确认后进入并发生成。</p>
+      </div>
+      <span class="badge">N = ${state.promptCount}</span>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label>尺寸</label>
+        <select onchange="state.size=this.value">
+          ${['1024x1024','1536x1024','1024x1536'].map(size => `<option value="${size}" ${state.size === size ? 'selected' : ''}>${size}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field">
+        <label>质量</label>
+        <select onchange="state.quality=this.value">
+          ${['auto','high','medium','low'].map(q => `<option value="${q}" ${state.quality === q ? 'selected' : ''}>${q}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+    <div class="section">
+      <div class="grid">${state.products.map(p => productCard(p)).join('')}</div>
+    </div>
+    <div class="section">
+      ${p ? renderPromptList(p) : '<p class="mini">请先选择产品。</p>'}
+    </div>
+    <div class="toolbar">
+      <button class="btn ghost" onclick="goStep(2)">返回报告</button>
+      <button class="btn ghost" onclick="addPrompt('${p ? p.id : ''}')" ${p ? '' : 'disabled'}>新增一组</button>
+      <button class="btn secondary" onclick="batchPrompts()" ${state.products.some(p => p.report.trim()) ? '' : 'disabled'}>重新生成 N 组</button>
+      <button class="btn primary" onclick="batchGenerate()" ${hasCheckedPrompts() ? '' : 'disabled'}>确认并生成图片</button>
+    </div>
+  `);
+  }
+
+  function renderPromptList(p) {
+    if (!p.prompts.length) {
+      return '<p class="mini">还没有提示词。点击“重新生成 N 组”即可根据报告生成。</p>';
+    }
+    return `
+    ${p.promptError ? `<div class="notice">提示词生成未完全按模型返回解析，已保留可用结果并补齐缺口。原因：${esc(p.promptError)}</div>` : ''}
+    ${p.prompts.map((it, index) => `
+    <div class="prompt-card ${it.checked ? '' : 'off'}">
+      <div class="prompt-top">
+        <span class="prompt-title">${esc(it.title || '海报方案 ' + (index + 1))}</span>
+        <label class="badge"><input type="checkbox" ${it.checked ? 'checked' : ''} onchange="togglePrompt('${p.id}', ${index})"> 参与出图</label>
+      </div>
+      <div class="field">
+        <label>生图提示词</label>
+        <textarea oninput="editPrompt('${p.id}', ${index}, this.value)">${esc(it.prompt)}</textarea>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>图上文案</label>
+          <input class="input" value="${esc(it.text_on_image || '')}" oninput="editPromptText('${p.id}', ${index}, this.value)">
+        </div>
+        <div class="field">
+          <label>场景标签</label>
+          <input class="input" value="${esc(it.scene || '')}" oninput="editPromptScene('${p.id}', ${index}, this.value)">
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="btn sm danger" onclick="removePrompt('${p.id}', ${index})">删除</button>
+      </div>
+    </div>
+  `).join('')}
+  `;
+  }
+
+  function renderResults() {
+    const tasks = state.products.flatMap(p => p.results.map((r, i) => ({ ...r, productName: p.name, productId: p.id, index: i })));
+    const done = tasks.filter(r => r.status === 'done').length;
+    const total = tasks.length;
+    const pct = total ? Math.round(done / total * 100) : 0;
+    panel(`
+    <div class="workspace-head">
+      <div>
+        <p class="eyebrow">Step 05 · Output</p>
+        <h2>生成结果</h2>
+        <p class="sub">查看生成状态，完成后下载单张或全部成图。</p>
+      </div>
+      <span class="badge ${total && done === total ? 'ok' : 'warn'}">${done}/${total} 完成</span>
+    </div>
+    <div class="progress"><i style="--w:${pct}%"></i></div>
+    <p class="mini" style="margin-top:10px">&#28857;&#20987;&#25104;&#22270;&#21487;&#25918;&#22823;&#39044;&#35272;&#65292;&#21487;&#29992;&#24038;&#21491;&#25353;&#38062;&#25110;&#26041;&#21521;&#38190;&#20999;&#25442;&#12290;</p>
+    <div class="section grid">
+      ${tasks.length ? tasks.map(cardResult).join('') : '<div class="empty">还没有生成任务。</div>'}
+    </div>
+    <div class="toolbar">
+      <button class="btn ghost" onclick="goStep(3)">返回提示词</button>
+      <button class="btn primary" onclick="downloadAll()" ${done ? '' : 'disabled'}>下载全部成图</button>
+    </div>
+  `);
+  }
+
+  function cardResult(r) {
+    if (r.image) {
+      return `
+      <div class="result-card">
+        <img class="result-thumb" src="${esc(r.image)}" alt="${esc(r.productName)} ${esc(r.scene || 'Poster')}" title="Preview larger" role="button" tabindex="0" onclick="openLightbox('${r.productId}', ${r.index})" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox('${r.productId}', ${r.index})}">
+        <div class="card-body">
+          <div class="name">${esc(r.productName)} · ${esc(r.scene || '海报')}</div>
+          <p class="mini">${esc(r.prompt)}</p>
+          <div class="toolbar">
+            <button class="btn sm ghost" onclick="downloadResult('${r.productId}', ${r.index})">下载</button>
+          </div>
+        </div>
+      </div>
+    `;
+    }
+    return `
+    <div class="result-card">
+      <div class="empty">
+        <div>
+          <span class="badge ${statusClass(r.status)}">${esc(r.status || '等待中')}</span>
+          <h4 style="margin-top:10px">${esc(r.productName)} · ${esc(r.scene || '海报')}</h4>
+          <p class="mini">${esc(r.error || r.prompt || '')}</p>
+        </div>
+      </div>
+    </div>
+  `;
+  }
+
+  function setIndustry(key) {
+    state.industry = key;
+    state.templateIndex = 0;
+    renderAll();
+  }
+
+  function toggleScene(id) {
+    state.scenes.has(id) ? state.scenes.delete(id) : state.scenes.add(id);
+    renderAll();
+  }
+
+  function setPromptCount(value) {
+    const n = Number(value);
+    state.promptCount = Number.isFinite(n) ? Math.max(1, Math.min(30, Math.round(n))) : 1;
+  }
+
+  function editSupplement(id, value) {
+    const p = state.products.find(p => p.id === id);
+    if (p) p.supplement = value;
+  }
+
+  function editReport(id, value) {
+    const p = state.products.find(p => p.id === id);
+    if (p) p.report = value;
+  }
+
+  function setReportMode(id, mode) {
+    const p = state.products.find(p => p.id === id);
+    if (!p || !p.reportDone || !reportsReady()) return;
+    p.reportMode = mode === 'edit' ? 'edit' : 'preview';
+    renderAll();
+  }
+
+  function editPrompt(id, index, value) {
+    const p = state.products.find(p => p.id === id);
+    if (p?.prompts[index]) p.prompts[index].prompt = value;
+  }
+
+  function editPromptText(id, index, value) {
+    const p = state.products.find(p => p.id === id);
+    if (p?.prompts[index]) p.prompts[index].text_on_image = value;
+  }
+
+  function editPromptScene(id, index, value) {
+    const p = state.products.find(p => p.id === id);
+    if (p?.prompts[index]) p.prompts[index].scene = value;
+  }
+
+  function togglePrompt(id, index) {
+    const p = state.products.find(p => p.id === id);
+    if (p?.prompts[index]) p.prompts[index].checked = !p.prompts[index].checked;
+    renderAll();
+  }
+
+  function addPrompt(id) {
+    const p = state.products.find(p => p.id === id);
+    if (!p) return;
+    p.prompts.push({
+      title: '手动新增方案',
+      scene: selectedSceneNames()[0],
+      prompt: '请在这里填写用于生成海报的完整提示词，包含产品主体、场景、构图、光线、风格、文案位置和限制条件。',
+      text_on_image: '',
+      checked: true
+    });
+    renderAll();
+  }
+
+  function removePrompt(id, index) {
+    const p = state.products.find(p => p.id === id);
+    if (!p) return;
+    p.prompts.splice(index, 1);
+    renderAll();
+  }
+
+  function removeProduct(id) {
+    state.products = state.products.filter(p => p.id !== id);
+    if (state.activeId === id) state.activeId = state.products[0]?.id || null;
+    renderAll();
+  }
+
+  function clearProducts() {
+    if (!confirm('清空所有产品任务？')) return;
+    state.products = [];
+    state.activeId = null;
+    renderAll();
+  }
+
+  function hasCheckedPrompts() {
+    return state.products.some(p => p.prompts.some(it => it.checked && it.prompt.trim()));
+  }
+
+  fileInput.onchange = event => handleFiles([...event.target.files]);
+  ['dragenter', 'dragover'].forEach(name => {
+    document.addEventListener(name, event => {
+      event.preventDefault();
+      if (state.step === 0) document.body.classList.add('is-dragging');
+    });
+  });
+  ['dragleave', 'drop'].forEach(name => {
+    document.addEventListener(name, event => {
+      event.preventDefault();
+      document.body.classList.remove('is-dragging');
+      if (name === 'drop' && state.step === 0) handleFiles([...event.dataTransfer.files]);
+    });
+  });
+
+  function handleFiles(files) {
+    files.filter(file => file.type.startsWith('image/')).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const p = {
+          id: uid(),
+          name: file.name,
+          file,
+          b64: reader.result,
+          supplement: '',
+          report: '',
+          reportDone: false,
+          reportMode: 'preview',
+          prompts: [],
+          promptError: '',
+          results: [],
+          status: '待分析'
+        };
+        state.products.push(p);
+        if (!state.activeId) state.activeId = p.id;
+        renderAll();
+      };
+      reader.readAsDataURL(file);
+    });
+    fileInput.value = '';
+  }
+
+  function responseText(data) {
+    if (!data) return '';
+    if (data.output_text) return data.output_text;
+    if (Array.isArray(data.output)) {
+      const parts = [];
+      data.output.forEach(item => {
+        (item.content || []).forEach(c => {
+          if (c.text) parts.push(c.text);
+        });
+      });
+      if (parts.length) return parts.join('\n');
+    }
+    return data.choices?.[0]?.message?.content || '';
+  }
+
+  function streamDelta(event) {
+    if (!event) return '';
+    if (typeof event.delta === 'string') return event.delta;
+    if (event.type === 'response.output_text.delta' && typeof event.delta === 'string') return event.delta;
+    if (event.choices?.[0]?.delta?.content) return event.choices[0].delta.content;
+    return '';
+  }
+
+  function completedResponseText(event) {
+    if (!event) return '';
+    if (event.type === 'response.completed' && event.response) return responseText(event.response);
+    if (event.response?.output || event.response?.output_text) return responseText(event.response);
+    if (event.output || event.output_text) return responseText(event);
+    return '';
+  }
+
+  async function readStreamedResponseText(res, onText) {
+    const contentType = res.headers?.get?.('content-type') || '';
+    if (!res.body || contentType.includes('application/json')) return responseText(await res.json());
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let output = '';
+    let completedText = '';
+
+    const applyEvent = payload => {
+      if (!payload || payload === '[DONE]') return;
+      let event;
+      try {
+        event = JSON.parse(payload);
+      } catch {
+        return;
+      }
+      const delta = streamDelta(event);
+      if (delta) {
+        output += delta;
+        onText(output);
+      }
+      const finalText = completedResponseText(event);
+      if (finalText) completedText = finalText;
+    };
+
+    const flushBlock = block => {
+      const lines = block.split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+      const dataLines = lines.filter(line => line.startsWith('data:')).map(line => line.replace(/^data:\s*/, ''));
+      if (dataLines.length) {
+        applyEvent(dataLines.join('\n'));
+        return;
+      }
+      lines.forEach(line => applyEvent(line));
+    };
+
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const blocks = buffer.split(/\r?\n\r?\n/);
+      buffer = blocks.pop() || '';
+      blocks.forEach(flushBlock);
+    }
+
+    buffer += decoder.decode();
+    if (buffer.trim()) flushBlock(buffer);
+    return output || completedText;
+  }
+
+  function requireConfig() {
+    const c = config();
+    if (!c.base || !c.key) {
+      toast('请先填写 API 地址和访问令牌');
+      return null;
+    }
+    return c;
+  }
+
+  async function analyzeOne(id) {
+    const c = requireConfig();
+    if (!c) return;
+    const p = state.products.find(p => p.id === id);
+    if (!p) return;
+    const previousReport = p.report;
+    p.status = '分析中';
+    p.report = '';
+    p.reportDone = false;
+    p.reportMode = 'preview';
+    state.running = true;
+    renderAll();
+    const industry = currentIndustry();
+    const template = currentTemplate();
+    const text = [
+      '【项目上下文】',
+      `行业：${industry.name}`,
+      `行业风格：${industry.hint}`,
+      `模板：${template.name} - ${template.desc}`,
+      `选定场景：${selectedSceneNames().join('、')}`,
+      `用户额外要求：${state.requirement || '无'}`,
+      `产品补充信息：${p.supplement || '无'}`,
+      '',
+      '【分析目标】',
+      '请把上传产品图转化为可执行的电商视觉 Brief，用于后续生成商业海报和图片编辑提示词。'
+    ].join('\n');
+    try {
+      const res = await fetch(c.base + '/v1/responses', {
+        method: 'POST',
+        headers: headers(c),
+        body: JSON.stringify({
+          model: c.text,
+          stream: true,
+          instructions: [
+            '你是一名资深电商视觉策略顾问、商品图像分析师和商业海报创意总监。你的任务不是写泛泛介绍，而是把上传的产品图片和用户上下文转化为可直接指导 AI 生图与设计执行的《产品视觉分析报告》。',
+            '分析原则：只基于图片中可见信息和用户提供的信息判断；无法确认的内容必须标注“未识别/需用户补充”；可以给出合理假设，但必须写明“推测”；禁止编造品牌、功效、认证、材质、价格、销量、医学/安全承诺等事实。',
+            '请优先识别并保护：产品主体形状、比例、颜色、材质质感、包装文字、Logo、标签、关键结构、配件、边缘轮廓。后续生图必须以这些信息为硬约束。',
+            '输出 Markdown，使用固定结构：# 产品视觉分析报告；## 1. 图像识别结论；## 2. 商品定位与目标用户；## 3. 核心卖点提炼；## 4. 场景与模板适配策略；## 5. 视觉创意方向；## 6. 图上文案建议；## 7. 生图约束与避坑清单；## 8. 可用于提示词生成的执行摘要。',
+            '每个章节都要具体、可执行。卖点请区分“已确认卖点/可推测卖点/需补充卖点”；图上文案建议请给出主标题、副标题、利益点标签、CTA 四类；生图约束请包含必须保留、允许优化、禁止改变三类。',
+            '语气专业、简洁、面向电商转化；避免空话，如“高端大气”“提升质感”等必须落到构图、光线、背景、道具、色彩或文案上。整体控制在 800-1400 个中文字符。'
+          ].join('\n'),
+          input: [{
+            role: 'user',
+            content: [
+              { type: 'input_image', image_url: p.b64 },
+              { type: 'input_text', text }
+            ]
+          }]
+        })
+      });
+      if (!res.ok) throw new Error((await res.text()).slice(0, 700));
+      let lastRender = 0;
+      const streamedReport = await readStreamedResponseText(res, text => {
+        p.report = text;
+        const now = Date.now();
+        if (now - lastRender > 80) {
+          lastRender = now;
+          renderAll();
+        }
+      });
+      p.report = streamedReport || p.report || '未返回分析报告，请手动补充。';
+      p.reportDone = true;
+      p.reportMode = 'preview';
+      p.status = '已完成';
+    } catch (error) {
+      p.status = '失败';
+      p.reportDone = false;
+      p.reportMode = 'preview';
+      p.report = p.report
+              ? `${p.report}\n\n分析中断：${error.message}`
+              : previousReport || `分析失败：${error.message}`;
+    } finally {
+      state.running = false;
+      renderAll();
+    }
+  }
+
+  async function batchAnalyze() {
+    if (!state.products.length) return;
+    state.step = 2;
+    renderAll();
+    for (const p of state.products) {
+      await analyzeOne(p.id);
+    }
+  }
+
+  function parsePromptPayload(raw) {
+    const cleaned = String(raw || '').replace(/```(?:json)?|```/gi, '').trim();
+    const candidates = [cleaned];
+    const arrayStart = cleaned.indexOf('[');
+    const arrayEnd = cleaned.lastIndexOf(']');
+    if (arrayStart >= 0 && arrayEnd > arrayStart) candidates.push(cleaned.slice(arrayStart, arrayEnd + 1));
+    const objectStart = cleaned.indexOf('{');
+    const objectEnd = cleaned.lastIndexOf('}');
+    if (objectStart >= 0 && objectEnd > objectStart) candidates.push(cleaned.slice(objectStart, objectEnd + 1));
+
+    let lastError = null;
+    for (const json of candidates) {
+      try {
+        const parsed = JSON.parse(json);
+        if (Array.isArray(parsed)) return parsed;
+        if (Array.isArray(parsed.prompts)) return parsed.prompts;
+        if (Array.isArray(parsed.items)) return parsed.items;
+        if (Array.isArray(parsed.data)) return parsed.data;
+        if (Array.isArray(parsed.results)) return parsed.results;
+        if (Array.isArray(parsed.提示词)) return parsed.提示词;
+        if (Array.isArray(parsed.提示词列表)) return parsed.提示词列表;
+        if (parsed.prompt || parsed.image_prompt || parsed.positive_prompt || parsed.text || parsed.提示词 || parsed.图片提示词 || parsed.生图提示词) return [parsed];
+      } catch (error) {
+        lastError = error;
+      }
+    }
+    throw new Error(lastError ? `提示词 JSON 解析失败：${lastError.message}` : '模型没有返回可解析的提示词 JSON');
+  }
+
+  function pickFirstText(item, fields) {
+    for (const field of fields) {
+      const value = item?.[field];
+      if (typeof value === 'string' && value.trim()) return value.trim();
+      if (Array.isArray(value)) {
+        const text = value.map(v => typeof v === 'string' ? v.trim() : '').filter(Boolean).join(' / ');
+        if (text) return text;
+      }
+    }
+    return '';
+  }
+
+  function normalizePromptItem(item, index) {
+    const scenes = selectedSceneNames();
+    const prompt = pickFirstText(item, [
+      'prompt',
+      'image_prompt',
+      'imagePrompt',
+      'positive_prompt',
+      'positivePrompt',
+      'poster_prompt',
+      'posterPrompt',
+      'final_prompt',
+      'finalPrompt',
+      'description',
+      'text',
+      '提示词',
+      '图片提示词',
+      '生图提示词',
+      '海报提示词',
+      '画面提示词',
+      '正向提示词'
+    ]);
+    return {
+      title: pickFirstText(item, ['title', 'name', 'headline', '标题', '方案名']) || `海报方案 ${index + 1}`,
+      scene: pickFirstText(item, ['scene', 'scenario', 'use_scene', 'scene_name', '场景', '场景标签']) || scenes[index % scenes.length],
+      prompt,
+      text_on_image: pickFirstText(item, ['text_on_image', 'textOnImage', 'copy', 'headline_copy', 'caption', 'slogan', '图上文案', '画面文案', '文案', '主标题']),
+      checked: item?.checked !== false
+    };
+  }
+
+  function fallbackPrompts(product, startIndex = 0, count = state.promptCount) {
+    const scenes = selectedSceneNames();
+    const industry = currentIndustry();
+    const template = currentTemplate();
+    return Array.from({ length: count }, (_, offset) => {
+      const index = startIndex + offset;
+      const scene = scenes[index % scenes.length];
+      return {
+        title: `${scene}方案 ${index + 1}`,
+        scene,
+        prompt: `基于产品“${product.name}”生成${scene}电商海报。参考行业：${industry.name}；模板：${template.name}。画面保留产品真实外观、包装比例和可见品牌元素，突出报告中的核心卖点；商业摄影质感，构图清晰，背景与产品调性匹配，适合电商转化。额外要求：${state.requirement || '无'}。`,
+        text_on_image: '核心卖点 / 立即购买',
+        checked: true
+      };
+    });
+  }
+
+  async function generatePromptsForProduct(product, c) {
+    const industry = currentIndustry();
+    const template = currentTemplate();
+    const payload = [
+      `【任务】基于下方产品视觉分析报告，生成 ${state.promptCount} 组商业海报生图提示词。`,
+      `行业：${industry.name}`,
+      `行业风格：${industry.hint}`,
+      `模板：${template.name} - ${template.desc}`,
+      `可选场景：${selectedSceneNames().join('、')}`,
+      `用户额外要求：${state.requirement || '无'}`,
+      '',
+      '【产品视觉分析报告】',
+      product.report
+    ].join('\n\n');
+    const res = await fetch(c.base + '/v1/responses', {
+      method: 'POST',
+      headers: headers(c),
+      body: JSON.stringify({
+        model: c.text,
+        instructions: [
+          '你是资深电商 AI 生图提示词工程师，擅长把产品分析报告转化为可执行的商业海报图片编辑提示词。当前任务使用“图片编辑/参考图生图”模式：上传产品图是唯一产品外观依据。',
+          '严格输出 JSON，不要 Markdown，不要解释，不要代码块。优先输出数组；如果输出对象，只能使用 {"prompts":[...]}。数组长度必须等于用户要求的 N。',
+          '每项必须包含字段：title、scene、prompt、text_on_image、checked。checked 固定为 true。字段值必须是中文字符串，不能为空。',
+          '每组方案必须有明显差异：场景、构图、视角、光线、背景、道具、卖点表达或文案层级至少变化 3 项；不要生成同质化提示词。',
+          'prompt 必须写成可直接用于生图的完整指令，长度 180-320 字，包含：①以上传产品图为参考并保持产品真实外观；②商业用途/平台场景；③画面场景与背景；④主体位置与构图；⑤光线、镜头、材质质感；⑥核心卖点的视觉化表达；⑦图上文案的位置与排版；⑧必须保留和禁止改变的限制；⑨负面约束。',
+          '硬性限制：不得改变产品包装文字、Logo、颜色、比例、结构和可见商标；不得凭空添加未在报告中确认的功效、认证、价格、销量、奖项；不得生成多余产品、畸形产品、错误文字、水印、二维码、联系方式。',
+          'text_on_image 只填写最终画面上建议出现的短文案，建议 6-18 个汉字；如果需要副标题，用“ / ”分隔，不要写长段落。',
+          'title 要像创意方案名；scene 要使用或贴近用户选择的场景；prompt 中不要出现 JSON 字段说明。'
+        ].join('\n'),
+        input: payload
+      })
+    });
+    if (!res.ok) throw new Error((await res.text()).slice(0, 700));
+    const raw = responseText(await res.json());
+    const list = parsePromptPayload(raw)
+            .map((item, index) => normalizePromptItem(item, index))
+            .filter(item => item.prompt)
+            .slice(0, state.promptCount);
+    if (!list.length) throw new Error('模型返回里没有可用的生图提示词字段');
+    if (list.length < state.promptCount) {
+      list.push(...fallbackPrompts(product, list.length, state.promptCount - list.length));
+    }
+    return list;
+  }
+
+  async function batchPrompts() {
+    const c = requireConfig();
+    if (!c) return;
+    if (!reportsReady()) {
+      toast('请等待所有产品报告生成完成后，再生成提示词');
+      return;
+    }
+    state.step = 3;
+    renderAll();
+    for (const p of state.products) {
+      if (!p.report.trim()) continue;
+      p.status = '生成提示词';
+      p.promptError = '';
+      p.prompts = Array.from({ length: state.promptCount }, (_, index) => ({
+        title: `生成中 ${index + 1}`,
+        scene: selectedSceneNames()[index % selectedSceneNames().length],
+        prompt: '正在生成提示词...',
+        text_on_image: '',
+        checked: true
+      }));
+      renderAll();
+      try {
+        p.prompts = await generatePromptsForProduct(p, c);
+        p.status = '已完成';
+        p.promptError = '';
+      } catch (error) {
+        p.prompts = fallbackPrompts(p);
+        p.status = '提示词兜底';
+        p.promptError = error.message;
+        console.warn('Prompt generation fallback:', error);
+      }
+      renderAll();
+    }
+  }
+
+  function buildImagePrompt(result) {
+    const text = Array.isArray(result.text_on_image)
+            ? result.text_on_image.map(v => typeof v === 'string' ? v.trim() : '').filter(Boolean).join(' / ')
+            : String(result.text_on_image || '').trim();
+    return text ? `${result.prompt}\n图上文案：${text}` : result.prompt;
+  }
+
+  async function generateImageTask(task, c) {
+    const { product, result } = task;
+    result.status = '生成中';
+    renderAll();
+    try {
+      const form = new FormData();
+      form.append('model', c.img);
+      form.append('prompt', buildImagePrompt(result));
+      form.append('image', product.file);
+      form.append('size', state.size);
+      form.append('quality', state.quality);
+      form.append('n', '1');
+      const res = await fetch(c.base + '/v1/images/edits', {
+        method: 'POST',
+        headers: headers(c, false),
+        body: form
+      });
+      if (!res.ok) throw new Error((await res.text()).slice(0, 700));
+      const item = (await res.json()).data?.[0] || {};
+      result.image = item.b64_json ? 'data:image/png;base64,' + item.b64_json : item.url || '';
+      result.status = result.image ? 'done' : 'error';
+      if (!result.image) result.error = '模型没有返回图片';
+    } catch (error) {
+      result.status = 'error';
+      result.error = error.message;
+    }
+    renderAll();
+  }
+
+  async function runPool(items, limit, worker) {
+    let index = 0;
+    const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
+      while (index < items.length) {
+        const item = items[index++];
+        await worker(item);
+      }
+    });
+    await Promise.all(workers);
+  }
+
+  async function batchGenerate() {
+    const c = requireConfig();
+    if (!c) return;
+    const tasks = [];
+    state.products.forEach(product => {
+      product.results = product.prompts
+              .filter(item => item.checked && item.prompt.trim())
+              .map(item => ({
+                title: item.title,
+                scene: item.scene,
+                prompt: item.prompt,
+                text_on_image: item.text_on_image,
+                status: '等待中',
+                image: '',
+                error: ''
+              }));
+      product.results.forEach(result => tasks.push({ product, result }));
+    });
+    if (!tasks.length) {
+      toast('请至少勾选一组提示词');
+      return;
+    }
+    state.step = 4;
+    renderAll();
+    await runPool(tasks, 5, task => generateImageTask(task, c));
+  }
+
+  function downloadUrl(url, name) {
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name.replace(/[\\/:*?"<>|]+/g, '_');
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }
+
+  function downloadResult(productId, index) {
+    const p = state.products.find(p => p.id === productId);
+    const r = p?.results[index];
+    if (r?.image) downloadUrl(r.image, `VizGen_${p.name}_${r.scene || index + 1}.png`);
+  }
+
+  function downloadAll() {
+    let delay = 0;
+    state.products.forEach(product => {
+      product.results.forEach((result, index) => {
+        if (!result.image) return;
+        setTimeout(() => downloadUrl(result.image, `VizGen_${product.name}_${result.scene || index + 1}.png`), delay);
+        delay += 180;
+      });
+    });
+  }
+
+  loadSettings();
+  renderAll();
+</script>
+</body>
+</html>
