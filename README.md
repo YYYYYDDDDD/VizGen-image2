@@ -88,6 +88,22 @@ https://your-api-proxy.example.com
 - 下载单张图片。
 - 下载全部成图。
 
+## 安装飞书 (Lark) CLI
+
+仓库提供了一个安装脚本，用于安装 larksuite 官方维护的 Feishu/Lark OpenAPI 命令行工具（npm 包 `@larksuiteoapi/lark-mcp`，命令名 `lark-mcp`）。
+
+```bash
+bash scripts/install-feishu-cli.sh
+```
+
+指定版本：
+
+```bash
+FEISHU_CLI_VERSION=0.5.1 bash scripts/install-feishu-cli.sh
+```
+
+前置条件：本机已安装 Node.js（>=18）与 npm。安装完成后可用 `lark-mcp --version` 验证。
+
 ## 二次开发指南
 
 当前项目是单文件实现，主要逻辑都在 `index.html` 中。二开时可以优先从下面这些位置入手。
